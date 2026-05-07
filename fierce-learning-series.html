@@ -390,14 +390,99 @@
             margin-bottom: 48px;
         }
 
-        /* Session Display */
-        .session-display {
-            border: 2px solid var(--color-accent);
-            border-radius: 12px;
-            padding: 32px;
-            text-align: center;
-            background: rgba(235, 117, 37, 0.04);
+        /* Session Selection */
+        .session-selection {
             margin-bottom: 48px;
+        }
+
+        .session-selection-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .session-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .session-card {
+            border: 2px solid rgba(14, 14, 14, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--color-bg);
+        }
+
+        .session-card:hover {
+            border-color: rgba(235, 117, 37, 0.4);
+            background: rgba(235, 117, 37, 0.02);
+        }
+
+        .session-card.selected {
+            border-color: var(--color-accent);
+            background: rgba(235, 117, 37, 0.06);
+        }
+
+        .session-card-topic {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            color: var(--color-text);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .session-card-date {
+            font-size: 15px;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        .session-card-time {
+            font-size: 14px;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        .session-card-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(14, 14, 14, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .session-card.selected .session-card-check {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+        }
+
+        .session-card-check svg {
+            width: 14px;
+            height: 14px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .session-card.selected .session-card-check svg {
+            opacity: 1;
+        }
+
+        /* Legacy session display (hidden) */
+        .session-display {
+            display: none;
         }
 
         .session-label {
@@ -826,12 +911,31 @@
             <h2 class="rsvp-headline">Reserve your seat</h2>
             <p class="rsvp-subhead">Join us for the next Fierce Learning Series session.</p>
 
-            <div class="session-display">
-                <div class="session-label">Next Session</div>
-                <div class="session-topic">Accountability</div>
-                <div class="session-date">Friday, May 15th</div>
-                <div class="session-time">11:00am ET</div>
-                <input type="hidden" name="session" value="may15">
+            <div class="session-selection">
+                <div class="session-selection-label">Choose Your Session</div>
+                <div class="session-options">
+                    <div class="session-card selected" data-session="may15" onclick="selectSession('may15')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-topic">Accountability</div>
+                        <div class="session-card-date">Friday, May 15th</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
+                    <div class="session-card" data-session="may22" onclick="selectSession('may22')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-topic">Change Management</div>
+                        <div class="session-card-date">Friday, May 22nd</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
+                </div>
+                <input type="hidden" id="sessionInput" name="session" value="may15">
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -944,23 +1048,43 @@
 
         // HubSpot Forms API configuration
         const HUBSPOT_PORTAL_ID = '21395487';
-        const HUBSPOT_FORM_ID = 'e48b6df1-2628-4aa6-9d86-dccceed5067f';
-        const HUBSPOT_API_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
-
-        // Session data
+        // Session data with form IDs
         const SESSIONS = {
             may15: {
                 date: 'Friday, May 15th',
                 time: '11:00am ET',
                 topic: 'Accountability',
                 calendarStart: '20260515T150000Z',
-                calendarEnd: '20260515T153000Z'
+                calendarEnd: '20260515T153000Z',
+                description: '• How to hold people accountable without damaging the relationship\n• The accountability conversation model\n• Practice: Real scenarios from your workplace',
+                formId: 'e48b6df1-2628-4aa6-9d86-dccceed5067f'
+            },
+            may22: {
+                date: 'Friday, May 22nd',
+                time: '11:00am ET',
+                topic: 'Change Management',
+                calendarStart: '20260522T150000Z',
+                calendarEnd: '20260522T153000Z',
+                description: '• Leading conversations through uncertainty\n• How to address resistance and build buy-in\n• Practice: Navigating real change scenarios',
+                formId: 'f1f43a68-d040-4964-99ed-9d3190a05379'
             },
         };
 
+        // Session selection
+        function selectSession(sessionKey) {
+            // Update hidden input
+            document.getElementById('sessionInput').value = sessionKey;
+
+            // Update card styles
+            document.querySelectorAll('.session-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`.session-card[data-session="${sessionKey}"]`).classList.add('selected');
+        }
+
         // Get selected session
         function getSelectedSession() {
-            const selected = document.querySelector('input[name="session"]');
+            const selected = document.getElementById('sessionInput');
             return SESSIONS[selected.value];
         }
 
@@ -1082,6 +1206,7 @@
                     { name: 'session_date', value: selectedSession.date },
                     { name: 'session_time', value: selectedSession.time },
                     { name: 'session_topic', value: selectedSession.topic },
+                    { name: 'session_description', value: selectedSession.description },
                     ...utmFields
                 ],
                 context: {
@@ -1093,7 +1218,10 @@
             };
 
             try {
-                const response = await fetch(HUBSPOT_API_URL, {
+                // Use the form ID for the selected session
+                const hubspotApiUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${selectedSession.formId}`;
+
+                const response = await fetch(hubspotApiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
