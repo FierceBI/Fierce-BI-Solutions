@@ -407,7 +407,7 @@
 
         .session-options {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 16px;
         }
 
@@ -916,17 +916,7 @@
             <div class="session-selection">
                 <div class="session-selection-label">Choose Your Session</div>
                 <div class="session-options">
-                    <div class="session-card selected" data-session="may15" onclick="selectSession('may15')">
-                        <div class="session-card-check">
-                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="2,7 5.5,10.5 12,4"/>
-                            </svg>
-                        </div>
-                        <div class="session-card-topic">Accountability</div>
-                        <div class="session-card-date">Friday, May 15th</div>
-                        <div class="session-card-time">11:00am ET</div>
-                    </div>
-                    <div class="session-card" data-session="may22" onclick="selectSession('may22')">
+                    <div class="session-card selected" data-session="may22" onclick="selectSession('may22')">
                         <div class="session-card-check">
                             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="2,7 5.5,10.5 12,4"/>
@@ -936,8 +926,28 @@
                         <div class="session-card-date">Friday, May 22nd</div>
                         <div class="session-card-time">11:00am ET</div>
                     </div>
+                    <div class="session-card" data-session="may29" onclick="selectSession('may29')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-topic">Confront</div>
+                        <div class="session-card-date">Friday, May 29th</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
+                    <div class="session-card" data-session="june12" onclick="selectSession('june12')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-topic">Resilience</div>
+                        <div class="session-card-date">Friday, June 12th</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
                 </div>
-                <input type="hidden" id="sessionInput" name="session" value="may15">
+                <input type="hidden" id="sessionInput" name="session" value="may22">
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -1052,15 +1062,6 @@
         const HUBSPOT_PORTAL_ID = '21395487';
         // Session data with form IDs
         const SESSIONS = {
-            may15: {
-                date: 'Friday, May 15th',
-                time: '11:00am ET',
-                topic: 'Accountability',
-                calendarStart: '20260515T150000Z',
-                calendarEnd: '20260515T153000Z',
-                description: '• How to hold people accountable without damaging the relationship\n• The accountability conversation model\n• Practice: Real scenarios from your workplace',
-                formId: 'e48b6df1-2628-4aa6-9d86-dccceed5067f'
-            },
             may22: {
                 date: 'Friday, May 22nd',
                 time: '11:00am ET',
@@ -1069,6 +1070,24 @@
                 calendarEnd: '20260522T153000Z',
                 description: '• Leading conversations through uncertainty\n• How to address resistance and build buy-in\n• Practice: Navigating real change scenarios',
                 formId: 'f1f43a68-d040-4964-99ed-9d3190a05379'
+            },
+            may29: {
+                date: 'Friday, May 29th',
+                time: '11:00am ET',
+                topic: 'Confront',
+                calendarStart: '20260529T150000Z',
+                calendarEnd: '20260529T153000Z',
+                description: '• Handling difficult conversations with confidence and clarity\n• Addressing resistance without escalating conflict\n• Confronting tough workplace situations constructively',
+                formId: '42f3449e-fe61-4b9e-9f5d-380ae3031344'
+            },
+            june12: {
+                date: 'Friday, June 12th',
+                time: '11:00am ET',
+                topic: 'Resilience',
+                calendarStart: '20260612T150000Z',
+                calendarEnd: '20260612T153000Z',
+                description: '• Staying adaptable and focused during challenges\n• Building emotional strength and a growth mindset\n• Responding effectively under pressure',
+                formId: '9a8ebe5e-4448-42cc-b760-92889841eb41'
             },
         };
 
@@ -1236,7 +1255,7 @@
                 if (response.ok) {
                     // Redirect to thank you page with session info
                     const sessionInput = document.querySelector('input[name="session"]');
-                    const sessionKey = sessionInput ? sessionInput.value : 'may1';
+                    const sessionKey = sessionInput ? sessionInput.value : 'may22';
                     // Use absolute URL for redirect (works better in iframes)
                     const currentPath = window.location.pathname;
                     const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
