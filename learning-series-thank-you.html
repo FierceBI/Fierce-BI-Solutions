@@ -376,13 +376,6 @@
     <script>
         // Session data
         const SESSIONS = {
-            may15: {
-                date: 'Friday, May 15th',
-                time: '11:00am ET',
-                topic: 'Accountability',
-                calendarStart: '20260515T150000Z',
-                calendarEnd: '20260515T153000Z'
-            },
             may22: {
                 date: 'Friday, May 22nd',
                 time: '11:00am ET',
@@ -390,12 +383,26 @@
                 calendarStart: '20260522T150000Z',
                 calendarEnd: '20260522T153000Z'
             },
+            may22: {
+                date: 'Friday, May 29th',
+                time: '11:00am ET',
+                topic: 'Confront',
+                calendarStart: '20260529T150000Z',
+                calendarEnd: '20260529T153000Z'
+            },
+            june12: {
+                date: 'Friday, June 12th',
+                time: '11:00am ET',
+                topic: 'Resilience',
+                calendarStart: '20260612T150000Z',
+                calendarEnd: '20260612T153000Z'
+            },
         };
 
         // Get session from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
-        const sessionKey = urlParams.get('session') || 'may15';
-        const session = SESSIONS[sessionKey] || SESSIONS.may15;
+        const sessionKey = urlParams.get('session') || 'may22';
+        const session = SESSIONS[sessionKey] || SESSIONS.may22;
 
         // Populate session details
         document.getElementById('sessionTopic').textContent = session.topic;
