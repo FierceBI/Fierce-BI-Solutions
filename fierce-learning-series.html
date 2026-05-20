@@ -932,7 +932,7 @@
             <div class="session-selection">
                 <div class="session-selection-label">Choose Your Session</div>
                 <div class="session-options">
-                    <div class="session-card selected" data-session="may22" onclick="selectSession('may22')">
+                    <div class="session-card selected" data-session="may29" onclick="selectSession('may29')">
                         <div class="session-card-check">
                             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="2,7 5.5,10.5 12,4"/>
@@ -941,18 +941,6 @@
                         <div class="session-card-module">Change</div>
                         <div class="session-card-topic">AI Is Coming for Your Culture.</div>
                         <div class="session-card-subdesc">How leaders hold the line when everything is shifting underneath them.</div>
-                        <div class="session-card-date">Friday, May 22nd</div>
-                        <div class="session-card-time">11:00am ET</div>
-                    </div>
-                    <div class="session-card" data-session="may29" onclick="selectSession('may29')">
-                        <div class="session-card-check">
-                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="2,7 5.5,10.5 12,4"/>
-                            </svg>
-                        </div>
-                        <div class="session-card-module">Confront</div>
-                        <div class="session-card-topic">Confrontation Isn't Conflict.</div>
-                        <div class="session-card-subdesc">How the conversations leaders avoid most are the ones that build the strongest teams.</div>
                         <div class="session-card-date">Friday, May 29th</div>
                         <div class="session-card-time">11:00am ET</div>
                     </div>
@@ -962,10 +950,22 @@
                                 <polyline points="2,7 5.5,10.5 12,4"/>
                             </svg>
                         </div>
+                        <div class="session-card-module">Confront</div>
+                        <div class="session-card-topic">Confrontation Isn't Conflict.</div>
+                        <div class="session-card-subdesc">How the conversations leaders avoid most are the ones that build the strongest teams.</div>
+                        <div class="session-card-date">Friday, June 12th</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
+                    <div class="session-card" data-session="june26" onclick="selectSession('june26')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
                         <div class="session-card-module">Resilience</div>
                         <div class="session-card-topic">Your Team Doesn't Need More Grit.</div>
                         <div class="session-card-subdesc">How leaders reset team energy under pressure — without pushing people past their limit.</div>
-                        <div class="session-card-date">Friday, June 12th</div>
+                        <div class="session-card-date">Friday, June 26th</div>
                         <div class="session-card-time">11:00am ET</div>
                     </div>
                 </div>
@@ -1084,17 +1084,17 @@
         const HUBSPOT_PORTAL_ID = '21395487';
         // Session data with form IDs
         const SESSIONS = {
-            may22: {
-                date: 'Friday, May 22nd',
+            may29: {
+                date: 'Friday, May 29th',
                 time: '11:00am ET',
-                topic: 'Change Management',
+                topic: 'Change',
                 calendarStart: '20260522T150000Z',
                 calendarEnd: '20260522T153000Z',
                 description: '• Leading conversations through uncertainty\n• How to address resistance and build buy-in\n• Practice: Navigating real change scenarios',
                 formId: 'f1f43a68-d040-4964-99ed-9d3190a05379'
             },
-            may29: {
-                date: 'Friday, May 29th',
+            june12: {
+                date: 'Friday, June 12th',
                 time: '11:00am ET',
                 topic: 'Confront',
                 calendarStart: '20260529T150000Z',
@@ -1102,8 +1102,8 @@
                 description: '• Handling difficult conversations with confidence and clarity\n• Addressing resistance without escalating conflict\n• Confronting tough workplace situations constructively',
                 formId: '42f3449e-fe61-4b9e-9f5d-380ae3031344'
             },
-            june12: {
-                date: 'Friday, June 12th',
+            june26: {
+                date: 'Friday, June 26th',
                 time: '11:00am ET',
                 topic: 'Resilience',
                 calendarStart: '20260612T150000Z',
