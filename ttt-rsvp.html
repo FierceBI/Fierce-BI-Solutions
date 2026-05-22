@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Your Spot — Fierce Train the Trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://js.hsforms.net/forms/embed/21395487.js" defer></script>
+    <style>
+        :root {
+            --gradient-start: #f5a623;
+            --gradient-mid: #eb7525;
+            --gradient-end: #d45f10;
+            --color-text: #0e0e0e;
+            --color-navy: #1C2B3A;
+            --color-muted: #555555;
+            --color-bg: #ffffff;
+            --surface-section: #F5F4F1;
+            --font-serif: 'DM Serif Display', serif;
+            --font-sans: 'DM Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--surface-section);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--gradient-mid);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-muted);
+        }
+
+        /* Card */
+        .card {
+            background: var(--color-bg);
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gradient-mid);
+            margin-bottom: 12px;
+        }
+
+        .card h1 {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .card h1 span {
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--color-muted);
+            margin-bottom: 32px;
+        }
+
+        /* Session Details */
+        .session-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .detail-item {
+            background: var(--color-text);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        /* Gradient border effect */
+        .detail-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .detail-text {
+            font-size: 14px;
+            color: white;
+        }
+
+        .detail-text strong {
+            display: block;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 8px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .detail-text strong::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 2px;
+        }
+
+        .detail-text span {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+        }
+
+        /* What You'll Get */
+        .benefits {
+            margin-bottom: 32px;
+        }
+
+        .benefits-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-text);
+            margin-bottom: 14px;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            font-size: 15px;
+            color: var(--color-text);
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gradient-mid);
+            font-weight: 600;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding-top: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            color: white;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(235, 117, 37, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(235, 117, 37, 0.4);
+        }
+
+        .cta-note {
+            font-size: 13px;
+            color: var(--color-muted);
+            margin-top: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: var(--color-muted);
+        }
+
+        .footer a {
+            color: var(--gradient-mid);
+            text-decoration: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--color-bg);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            border-radius: 16px 16px 0 0;
+        }
+
+        .modal-header {
+            padding: 32px 32px 0;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--surface-section);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--color-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #e8e7e4;
+        }
+
+        .modal-title {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--color-muted);
+            line-height: 1.5;
+        }
+
+        .modal-body {
+            padding: 24px 32px 32px;
+        }
+
+        /* HubSpot Form Styling */
+        .form-placeholder {
+            background: var(--surface-section);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            color: var(--color-muted);
+            font-size: 14px;
+            border: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        /* Style HubSpot form inputs when embedded */
+        .modal-body input[type="text"],
+        .modal-body input[type="email"],
+        .modal-body input[type="tel"],
+        .modal-body select,
+        .modal-body textarea {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background: var(--surface-section);
+            color: var(--color-text);
+            margin-bottom: 16px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-body input:focus,
+        .modal-body select:focus,
+        .modal-body textarea:focus {
+            outline: none;
+            border-color: var(--gradient-mid);
+            box-shadow: 0 0 0 3px rgba(235, 117, 37, 0.1);
+        }
+
+        .modal-body label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 6px;
+        }
+
+        .modal-body button[type="submit"],
+        .modal-body input[type="submit"] {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            color: white;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 4px 16px rgba(235, 117, 37, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-body button[type="submit"]:hover,
+        .modal-body input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(235, 117, 37, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Fierce</div>
+            <div class="logo-sub">Train the Trainer</div>
+        </div>
+
+        <!-- Card -->
+        <div class="card">
+            <div class="eyebrow">Virtual Session</div>
+            <h1>Meet the Master Facilitator <span>Behind the Program</span></h1>
+            <p class="subtitle">
+                Considering Train the Trainer for your organization? Join us for a 30-minute virtual session to meet the facilitator, ask questions, and discover which certification path is right for your team.
+            </p>
+
+            <!-- Session Details -->
+            <div class="session-details">
+                <div class="detail-item">
+                    <div class="detail-text">
+                        <strong>30 Minutes</strong>
+                        <span>Virtual session</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-text">
+                        <strong>Live Q&A</strong>
+                        <span>With master facilitator</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-text">
+                        <strong>Personalized</strong>
+                        <span>Path recommendations</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits -->
+            <div class="benefits">
+                <div class="benefits-title">In This Session, You'll:</div>
+                <ul class="benefits-list">
+                    <li>Meet the master facilitator who leads TTT certification</li>
+                    <li>Explore what's new: Emotional Intelligence, Generations, and updated modules</li>
+                    <li>Get guidance on which tier fits your organization's goals</li>
+                    <li>Ask questions about delivery, timing, and implementation</li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <a href="#" class="cta-button" id="openModal">Save Your Spot</a>
+                <p class="cta-note">Limited availability.</p>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <button class="modal-close" id="closeModal">✕</button>
+                    <h2 class="modal-title">You're In!</h2>
+                    <p class="modal-subtitle">Our master facilitators can't wait to meet you.</p>
+                </div>
+                <div class="modal-body">
+                    <!-- HubSpot Form -->
+                    <div class="hs-form-frame" data-region="na1" data-form-id="9d3c3822-851d-49ed-ad08-9da899b89a46" data-portal-id="21395487"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Questions? Contact <a href="mailto:FierceOperations@fierceinc.com">FierceOperations@fierceinc.com</a>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const openBtn = document.getElementById('openModal');
+        const closeBtn = document.getElementById('closeModal');
+        const overlay = document.getElementById('modalOverlay');
+
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
