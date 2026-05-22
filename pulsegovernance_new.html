@@ -1,0 +1,387 @@
+<style>
+body {
+  background: #f7f7f5;
+  color: #1f1f1f;
+  font-family: Inter, sans-serif;
+}
+.fusion-fullwidth.fullwidth-box.fusion-builder-row-2.fusion-flex-container.has-pattern-background.has-mask-background.nonhundred-percent-fullwidth.non-hundred-percent-height-scrolling {
+    background: #fff;
+}
+.pg-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.pg-hero {
+  padding: 140px 0;
+}
+
+.pg-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.pg-eyebrow {
+  color: #ee7726;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 26px;
+}
+
+.pg-hero h1 {
+  font-size: 78px;
+    line-height: 1.0;
+    margin-bottom: 34px;
+    font-family: Impact, sans-serif;
+    color: #1f1f1f;
+    letter-spacing: 1.4px;
+}
+
+.pg-hero p {
+  font-size: 21px;
+  line-height: 1.7;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+
+.pg-hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 38px;
+}
+
+.pg-btn-primary {
+  background: #ee7726;
+  color: white;
+  padding: 16px 30px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.pg-btn-secondary {
+  border: 1px solid #1f1f1f;
+  color: #1f1f1f;
+  padding: 16px 30px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.pg-flow-card {
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 40px;
+}
+
+.pg-flow-box {
+  border: 1px solid #d1d5db;
+  padding: 18px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.pg-pulse-box {
+  background: #ee7726;
+  border-color: #ee7726;
+  color: white;
+  font-weight: 700;
+}
+
+.pg-arrow {
+  text-align: center;
+  padding: 10px 0;
+  color: #6b7280;
+}
+
+.pg-section {
+  padding: 110px 0;
+}
+
+.pg-section-header {
+  max-width: 900px;
+  margin-bottom: 60px;
+}
+
+.pg-section-header h2 {
+ font-size: 60px;
+    line-height: .95;
+    margin-bottom: 28px;
+    font-family: Impact, sans-serif;
+    color: #1f1f1f;
+    letter-spacing: 1.3px;
+}
+
+.pg-section-header p {
+  font-size: 21px;
+  line-height: 1.7;
+  color: #6b7280;
+}
+
+.pg-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 24px;
+}
+
+.pg-card {
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 36px;
+}
+
+.pg-card h3 {
+  font-size: 30px;
+  margin-bottom: 18px;
+  color:#1f1f1f;
+}
+
+.pg-card p {
+  line-height: 1.7;
+  color: #6b7280;
+}
+
+@media(max-width:991px) {
+
+  .pg-hero-grid,
+  .pg-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pg-hero h1 {
+    font-size: 52px;
+  }
+
+  .pg-section-header h2 {
+    font-size: 44px;
+  }
+
+}
+</style>
+
+<style>
+.pulse-page {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    color: var(--pulse-ink);
+    background: var(--pulse-bg);
+    line-height: 1.55;
+}
+.pulse-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 248, 251, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(208, 213, 221, 0.72);
+}
+.pulse-nav-inner {
+    max-width: var(--pulse-max);
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.pulse-page a {
+    color: inherit;
+    text-decoration: none;
+}
+.pulse-nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: var(--pulse-muted);
+    font-size: 14px;
+    font-weight: 650;
+}
+.pulse-page a {
+    color: inherit;
+    text-decoration: none;
+}
+.pulse-btn-primary {
+    background: var(--pulse-blue);
+    color: #fff;
+}
+
+</style>
+
+<div class="pulse-page">
+<nav class="pulse-nav">
+
+    <div class="pulse-nav-inner">
+
+      <a href="#top" class="pulse-brand">
+
+        Pulse Governance
+
+        <span>by Fierce Inc.</span>
+
+      </a>
+
+      <div class="pulse-nav-links">
+
+        <a href="#diagnostic">Diagnostic</a>
+
+        <a href="#buyers">Buyer Lenses</a>
+
+        <a href="#proof">Proof</a>
+
+        <a href="#credibility">Credibility</a>
+
+        <a class="pulse-btn pulse-btn-primary" href="#request">Analyze One Workflow</a>
+
+      </div>
+
+    </div>
+
+  </nav>
+</div>
+
+<section class="pg-hero">
+
+  <div class="pg-container pg-hero-grid">
+
+    <div class="pg-hero-left">
+
+      <div class="pg-eyebrow">
+        Execution Integrity Infrastructure™
+      </div>
+
+      <h1>
+        Govern execution where actions become real.
+      </h1>
+
+      <p>
+        Most enterprise systems monitor, orchestrate, recommend, and automate.
+      </p>
+
+      <p>
+        Very few independently validate irreversible execution itself at the commit boundary.
+      </p>
+
+      <p>
+        Pulse Governance provides runtime execution assurance through replayable governance evidence, authorization linkage, and fail closed validation.
+      </p>
+
+      <div class="pg-hero-actions">
+
+        <a href="#request" class="pg-btn-primary">
+          Request Diagnostic
+        </a>
+
+        <a href="#how-it-works" class="pg-btn-secondary">
+          See How It Works
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="pg-hero-right">
+
+      <div class="pg-flow-card">
+
+        <div class="pg-flow-box">
+          Authorization
+        </div>
+
+        <div class="pg-arrow">↓</div>
+
+        <div class="pg-flow-box">
+          Policy
+        </div>
+
+        <div class="pg-arrow">↓</div>
+
+        <div class="pg-flow-box">
+          Execution Payload
+        </div>
+
+        <div class="pg-arrow">↓</div>
+
+        <div class="pg-flow-box pg-pulse-box">
+          PULSE COMMIT CHECK
+        </div>
+
+        <div class="pg-arrow">↓</div>
+
+        <div class="pg-flow-box">
+          Allow / Escalate / Block
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="pg-section">
+
+  <div class="pg-container">
+
+    <div class="pg-section-header">
+
+      <h2>
+        Most systems govern decisions. Very few govern execution.
+      </h2>
+
+      <p>
+        As workflows move across APIs, retries, asynchronous systems, downstream services, and autonomous agents, approved intent can diverge from execution reality.
+      </p>
+
+    </div>
+
+    <div class="pg-card-grid">
+
+      <div class="pg-card">
+
+        <h3>
+          Execution Drift
+        </h3>
+
+        <p>
+          Approved intent diverges as workflows move across APIs, retries, asynchronous systems, downstream services, and agents.
+        </p>
+
+      </div>
+
+      <div class="pg-card">
+
+        <h3>
+          Operational Leakage
+        </h3>
+
+        <p>
+          Refunds, payouts, pricing, promotions, approvals, and enforcement actions can execute outside intended scope.
+        </p>
+
+      </div>
+
+      <div class="pg-card">
+
+        <h3>
+          Evidence Gaps
+        </h3>
+
+        <p>
+          Organizations reconstruct execution after the fact instead of validating execution at the moment actions become real.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
