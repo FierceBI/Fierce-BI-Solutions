@@ -15,6 +15,7 @@ import { ContextStage } from "@/components/ContextStage";
 import { QuestionStage } from "@/components/QuestionStage";
 import { LogisticsStage } from "@/components/LogisticsStage";
 import { ConfirmationStage } from "@/components/ConfirmationStage";
+import { submitToHubSpot } from "@/lib/hubspot-client";
 
 type Stage =
   | { kind: "intro" }
@@ -64,19 +65,9 @@ export default function Home() {
   function performSubmit() {
     if (!context || !result || !scope) return;
     setSubmitState("sending");
-    fetch("/api/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        context,
-        answers: responses,
-        result,
-        scope,
-        utmParams,
-        submittedAt: new Date().toISOString(),
-      }),
-    })
-      .then((r) => (r.ok ? setSubmitState("ok") : setSubmitState("error")))
+
+    submitToHubSpot(context, responses, result, scope, utmParams)
+      .then((ok) => setSubmitState(ok ? "ok" : "error"))
       .catch(() => setSubmitState("error"));
   }
 
