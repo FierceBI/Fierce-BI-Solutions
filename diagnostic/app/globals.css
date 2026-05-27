@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: #0A0A0A;
+  color: #FFF6EE;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(230, 119, 48, 0.4);
+  color: #FFF6EE;
+}
+
+/* Subtle grain for premium feel */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' /></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+/* Underline accent — orange gradient line */
+.fierce-underline {
+  position: relative;
+}
+.fierce-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 3px;
+  width: 64px;
+  background: linear-gradient(90deg, #C25A1B 0%, #E67730 50%, #F39556 100%);
+  border-radius: 2px;
+}
+
+/* Triangle corner accents (echo the PDF brand mark) */
+.corner-triangle-tl::before,
+.corner-triangle-br::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 0;
+}
+.corner-triangle-tl::before {
+  top: 0;
+  left: 0;
+  border-style: solid;
+  border-width: 80px 80px 0 0;
+  border-color: #E67730 transparent transparent transparent;
+}
+.corner-triangle-br::after {
+  bottom: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 0 80px 80px;
+  border-color: transparent transparent #E67730 transparent;
+}
+
+/* Premium button hover */
+.btn-fierce {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-fierce:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px -8px rgba(230, 119, 48, 0.5);
+}
+.btn-fierce:active {
+  transform: translateY(0);
+}
+
+/* Chip selectable */
+.chip {
+  transition: all 0.18s ease;
+  border: 1px solid rgba(255, 246, 238, 0.15);
+}
+.chip:hover {
+  border-color: rgba(230, 119, 48, 0.6);
+  background: rgba(230, 119, 48, 0.06);
+}
+.chip.selected {
+  border-color: #E67730;
+  background: linear-gradient(135deg, rgba(194, 90, 27, 0.18) 0%, rgba(230, 119, 48, 0.12) 100%);
+  box-shadow: 0 0 0 1px #E67730 inset;
+}
+
+/* Text input premium */
+.fierce-input {
+  background: rgba(255, 246, 238, 0.04);
+  border: 1px solid rgba(255, 246, 238, 0.12);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+.fierce-input:focus {
+  outline: none;
+  border-color: #E67730;
+  background: rgba(255, 246, 238, 0.06);
+}
+
+/* Gradient text — matches the button gradient exactly (.bg-fierce-gradient) */
+.headline-accent {
+  background-image: linear-gradient(135deg, #C25A1B 0%, #E67730 50%, #F39556 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Stage transition wrapper */
+.stage-enter {
+  animation: fadeUp 0.45s ease-out forwards;
+}
+
+/* Progress bar */
+.progress-track {
+  background: rgba(255, 246, 238, 0.08);
+}
+.progress-fill {
+  background: linear-gradient(90deg, #C25A1B 0%, #E67730 50%, #F39556 100%);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Gradient orange outline for cards — subtle "edge lighting" effect */
+.card-glow {
+  position: relative;
+  background: rgba(10, 10, 10, 0.6);
+  border-radius: 0.75rem;
+}
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #F15A22 0%, #E8571A 50%, #eb7525 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Stronger glow for featured callout box */
+.card-glow-strong::before {
+  opacity: 0.8;
+  padding: 1.5px;
+}
