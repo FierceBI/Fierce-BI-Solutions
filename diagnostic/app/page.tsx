@@ -23,6 +23,14 @@ type Stage =
   | { kind: "logistics" }
   | { kind: "confirmation" };
 
+type UtmParams = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+  gclid?: string;
+};
+
 const QUESTION_LIST = QUESTIONS.filter((q) => q.type !== "context");
 const TOTAL_STEPS = QUESTION_LIST.length + 3;
 
@@ -33,6 +41,19 @@ export default function Home() {
   const [scope, setScope] = useState<ScopeAnswers | undefined>();
   const [submitState, setSubmitState] =
     useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [utmParams, setUtmParams] = useState<UtmParams>({});
+
+  // Capture UTM params from URL on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utm: UtmParams = {};
+    if (params.get("utm_source")) utm.utm_source = params.get("utm_source")!;
+    if (params.get("utm_medium")) utm.utm_medium = params.get("utm_medium")!;
+    if (params.get("utm_campaign")) utm.utm_campaign = params.get("utm_campaign")!;
+    if (params.get("utm_content")) utm.utm_content = params.get("utm_content")!;
+    if (params.get("gclid")) utm.gclid = params.get("gclid")!;
+    setUtmParams(utm);
+  }, []);
 
   const result: ScoringResult | null = useMemo(() => {
     if (!context) return null;
@@ -51,6 +72,7 @@ export default function Home() {
         answers: responses,
         result,
         scope,
+        utmParams,
         submittedAt: new Date().toISOString(),
       }),
     })

@@ -73,6 +73,14 @@ async function submitToHubSpot(
     { objectTypeId: "0-1", name: "diagnostic_brief", value: briefing },
   ];
 
+  // Add UTM params if present (HubSpot standard tracking fields)
+  const utm = sub.utmParams;
+  if (utm?.utm_source) fields.push({ objectTypeId: "0-1", name: "hs_analytics_source", value: utm.utm_source });
+  if (utm?.utm_medium) fields.push({ objectTypeId: "0-1", name: "utm_medium", value: utm.utm_medium });
+  if (utm?.utm_campaign) fields.push({ objectTypeId: "0-1", name: "utm_campaign", value: utm.utm_campaign });
+  if (utm?.utm_content) fields.push({ objectTypeId: "0-1", name: "utm_content", value: utm.utm_content });
+  if (utm?.gclid) fields.push({ objectTypeId: "0-1", name: "gclid", value: utm.gclid });
+
   const url = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
 
   try {

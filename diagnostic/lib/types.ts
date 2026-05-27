@@ -55,10 +55,19 @@ export interface ScopeAnswers {
   notes: string;
 }
 
+export interface UtmParams {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+  gclid?: string;
+}
+
 export interface FullSubmission {
   context: ContextAnswers;
   answers: DiagnosticAnswers["responses"];
   result: ScoringResult;
   scope: ScopeAnswers;
+  utmParams?: UtmParams;
   submittedAt: string;
 }
