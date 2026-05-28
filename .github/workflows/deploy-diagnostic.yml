@@ -1,16 +1,15 @@
- name: Deploy Diagnostic to GitHub Pages                                       
+name: Deploy Diagnostic to GitHub Pages                                       
                                                                                 
   on:                                                                           
     push:                                                                       
-      branches: [main]                                                          
+      branches:                                                                 
+        - main                                                                  
       paths:                                                                    
         - 'diagnostic/**'                                                       
     workflow_dispatch:                                                          
                                                                                 
   permissions:                                                                  
-    contents: read                                                              
-    pages: write                                                                
-    id-token: write                                                             
+    contents: write                                                             
                                                                                 
   jobs:                                                                         
     build-and-deploy:                                                           
@@ -43,4 +42,4 @@
           with:                                                                 
             github_token: ${{ secrets.GITHUB_TOKEN }}                           
             publish_dir: ./diagnostic/out                                       
-            destination_dir: diagnostic  
+            destination_dir: diagnostic
