@@ -1,5 +1,5 @@
 name: Deploy Diagnostic to GitHub Pages                                       
-  on:                                                                           
+on:                                                                           
     push:                                                                       
       branches:                                                                 
         - main                                                                  
