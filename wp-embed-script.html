@@ -31,6 +31,12 @@
             5: 'https://mail.fierceinc.com/hs/payments/cTyJPTxkPPjm?referrer=PAYMENT_LINK',
         };
 
+        // ⚠️ TEST MODE — while true, EVERY selection routes to the $1 test
+        // checkout so the full flow can be verified cheaply. Set to false
+        // BEFORE going live, or real customers will only be charged $1.
+        const TEST_MODE = true;
+        const HUBSPOT_PAY_TEST = 'https://mail.fierceinc.com/hs/payments/2f6RMSVV?referrer=PAYMENT_LINK';
+
         const SESSIONS = {
             series:    { date: 'Full 2026 Series (all 7 Labs)', time: '11:00 AM CST', topic: 'Full Series Pass', model: 'Full Series' },
             june:      { date: 'June 17, 2026',      time: '11:00 AM CST', topic: 'Feedback That Builds Trust Instead of Resistance',                                  model: 'Fierce Feedback' },
@@ -68,6 +74,7 @@
 
         // Route to the checkout whose total already matches the selection.
         function getPaymentUrl() {
+            if (TEST_MODE) return HUBSPOT_PAY_TEST;   // $1 test checkout for everything
             const { useSeries, count } = getPricing();
             const url = useSeries ? HUBSPOT_PAY_SERIES : HUBSPOT_PAY_BY_QTY[count];
             return (url && !url.startsWith('PLACEHOLDER')) ? url : null;
