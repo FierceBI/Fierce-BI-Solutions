@@ -2059,6 +2059,18 @@
             registerModal = document.getElementById('registerModal');
             modalClose = document.getElementById('modalClose');
 
+            // Page builders (Divi) wrap content in containers that use CSS
+            // transforms / overflow:hidden, which clip a position:fixed modal so
+            // it never appears. Relocate the modal to <body> inside a #fierce-lab
+            // host so its scoped styles still apply but it covers the viewport.
+            if (registerModal && registerModal.parentElement !== document.body) {
+                const modalHost = document.createElement('div');
+                modalHost.id = 'fierce-lab';
+                modalHost.setAttribute('data-fierce-lab-modal-host', '');
+                document.body.appendChild(modalHost);
+                modalHost.appendChild(registerModal);
+            }
+
             document.querySelectorAll('.js-reserve').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
