@@ -1757,98 +1757,27 @@
     </footer>
 
     <script>
-        // Navigation scroll effect
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 10);
-        });
+    // Self-contained, run-once, DOM-ready. Safe in <head> or footer, and
+    // immune to WordPress/Divi load order or being included twice.
+    (function () {
+        if (window.__fierceLabInit) return;   // guard against double-inclusion
+        window.__fierceLabInit = true;
 
-        // Smooth scroll for anchor links (better iframe compatibility)
-        function smoothScrollTo(targetId) {
-            const target = document.getElementById(targetId);
-            if (!target) return;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const id = link.getAttribute('href').slice(1);
-                if (!id) return;
-                const target = document.getElementById(id);
-                if (!target) return;
-                e.preventDefault();
-                e.stopPropagation();
-                smoothScrollTo(id);
-            });
-        });
-
-        // Registration modal — opened by every "Reserve" button (.js-reserve)
-        const registerModal = document.getElementById('registerModal');
-        const modalClose = document.getElementById('modalClose');
-
-        function openModal() {
-            registerModal.classList.add('open');
-            registerModal.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('no-scroll');
-        }
-
-        function closeModal() {
-            registerModal.classList.remove('open');
-            registerModal.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('no-scroll');
-        }
-
-        document.querySelectorAll('.js-reserve').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const session = btn.getAttribute('data-session');
-                if (session) selectSession(session);
-                openModal();
-            });
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        registerModal.addEventListener('click', (e) => {
-            if (e.target === registerModal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && registerModal.classList.contains('open')) closeModal();
-        });
-
-        // ─────────────────────────────────────────────────────────────
-        // HubSpot Forms API configuration
-        // TODO (admins): set HUBSPOT_FORM_ID to the live Leadership Lab form GUID.
-        // While it's left as 'PLACEHOLDER_FORM_ID', the form runs in demo mode
-        // (no network call) and just shows the confirmation. Portal ID is the
-        // existing Fierce HubSpot portal, same as the Learning Series page.
-        // ─────────────────────────────────────────────────────────────
+        // ── HubSpot Forms API ──
+        // Set HUBSPOT_FORM_ID to the live Leadership Lab form GUID. While it is
+        // 'PLACEHOLDER_FORM_ID' the form runs in demo mode (no network call).
         const HUBSPOT_PORTAL_ID = '21395487';
         const HUBSPOT_FORM_ID = '29124d77-ec31-450d-9801-b992f9cf5768';
 
-        // ─────────────────────────────────────────────────────────────
-        // HubSpot Payment Links
-        // After registration is recorded, the registrant is sent straight to
-        // the matching HubSpot-hosted checkout to pay. Create two payment links
-        // in HubSpot (Commerce → Payment links) and paste their URLs below:
-        //   • SINGLE  → the $299 single-Lab link (used for any one month)
-        //   • SERIES  → the $1,799 full-series link
-        // While either is left as its PLACEHOLDER, that path falls back to the
-        // old flow (show confirmation; admin team bills manually).
-        // ─────────────────────────────────────────────────────────────
+        // ── HubSpot Payment Links ──
+        // After registration, the registrant is sent to the matching checkout.
+        //   SINGLE -> $299 single-Lab link (quantity set by buyer for multi)
+        //   SERIES -> $1,799 full-series link
+        // While left as a PLACEHOLDER, that path falls back to the confirmation
+        // card (manual billing).
         const HUBSPOT_PAY_SINGLE = 'https://mail.fierceinc.com/hs/payments/purchase/hscs_642HtjRlcAqppXKxoqgsCsENlv89OHLdFlS6Bs3E4rcrcqrQDfJVZZaLDv7nuzSF?referrer=PAYMENT_LINK';
         const HUBSPOT_PAY_SERIES = 'https://mail.fierceinc.com/hs/payments/purchase/hscs_GrilsBHgN9hPyPCajI3xDSTWcLveJPEmGH0I26ijsntqIlXqccz7XhqdRSVFxbiw?referrer=PAYMENT_LINK';
 
-        // Series -> the flat $1,799 link. Any individual Lab(s) -> the $299
-        // link (quantity = number of Labs, set by the buyer at checkout).
-        function getPaymentUrl() {
-            const url = selectedSessions.includes('series') ? HUBSPOT_PAY_SERIES : HUBSPOT_PAY_SINGLE;
-            return url.startsWith('PLACEHOLDER') ? null : url;
-        }
-
-        // Lab sessions (2026). Add per-session formId here later if you split
-        // registration into one HubSpot form per month.
         const SESSIONS = {
             series:    { date: 'Full 2026 Series (all 7 Labs)', time: '11:00 AM CST', topic: 'Full Series Pass', model: 'Full Series' },
             june:      { date: 'June 17, 2026',      time: '11:00 AM CST', topic: 'Feedback That Builds Trust Instead of Resistance',                                  model: 'Fierce Feedback' },
@@ -1863,11 +1792,18 @@
         const SINGLE_PRICE = 299;
         const SERIES_PRICE = 1799;
 
-        // Currently selected Lab keys. The full series is mutually exclusive
-        // with individual Labs (it already includes all seven).
+        // Currently selected Lab keys. Series is mutually exclusive with Labs.
         let selectedSessions = ['june'];
 
-        // Pricing for the current selection.
+        // DOM refs (assigned in init()).
+        let nav, registerModal, modalClose, form, formContainer, confirmation;
+
+        // Series -> $1,799 link. Any individual Lab(s) -> $299 link.
+        function getPaymentUrl() {
+            const url = selectedSessions.includes('series') ? HUBSPOT_PAY_SERIES : HUBSPOT_PAY_SINGLE;
+            return url.startsWith('PLACEHOLDER') ? null : url;
+        }
+
         function getPricing() {
             const isSeries = selectedSessions.includes('series');
             const count = isSeries ? 1 : selectedSessions.length;
@@ -1875,13 +1811,13 @@
             return { isSeries, count, total };
         }
 
-        // Reflect selectedSessions into the cards, hidden input, and summary.
         function renderSelection() {
             document.querySelectorAll('.session-card').forEach(card => {
                 const key = card.getAttribute('data-session');
                 card.classList.toggle('selected', selectedSessions.includes(key));
             });
-            document.getElementById('sessionInput').value = selectedSessions.join(',');
+            const hidden = document.getElementById('sessionInput');
+            if (hidden) hidden.value = selectedSessions.join(',');
             updateSummary();
         }
 
@@ -1889,6 +1825,7 @@
             const label = document.getElementById('selectionSummaryLabel');
             const totalEl = document.getElementById('selectionSummaryTotal');
             let note = document.getElementById('selectionSummaryNote');
+            if (!label || !totalEl) return;
 
             if (selectedSessions.length === 0) {
                 label.textContent = 'No Lab selected yet';
@@ -1906,15 +1843,14 @@
             }
             totalEl.textContent = '$' + total.toLocaleString();
 
-            // When more than one individual Lab is chosen, the HubSpot checkout
-            // needs the buyer to confirm quantity. Tell them exactly what to set.
             const n = selectedSessions.length;
-            if (!isSeries && n > 1) {
+            const summaryEl = document.getElementById('selectionSummary');
+            if (!isSeries && n > 1 && summaryEl) {
                 if (!note) {
                     note = document.createElement('span');
                     note.id = 'selectionSummaryNote';
                     note.className = 'selection-summary-note';
-                    document.getElementById('selectionSummary').appendChild(note);
+                    summaryEl.appendChild(note);
                 }
                 note.textContent = `At checkout, set quantity to ${n} to cover all ${n} Labs.`;
             } else if (note) {
@@ -1922,7 +1858,7 @@
             }
         }
 
-        // Card click: toggle a Lab on/off (series clears individuals & vice versa).
+        // Toggle a Lab on/off (series clears individuals & vice versa).
         function toggleSession(key) {
             if (key === 'series') {
                 selectedSessions = selectedSessions.includes('series') ? [] : ['series'];
@@ -1943,22 +1879,36 @@
             renderSelection();
         }
 
-        // After a registration is recorded, send the registrant to the matching
-        // HubSpot checkout. If no live payment link is configured for this
-        // selection, fall back to the confirmation card (manual billing).
+        // Expose for the inline onclick handlers in the markup.
+        window.toggleSession = toggleSession;
+        window.selectSession = selectSession;
+
+        function openModal() {
+            if (!registerModal) return;
+            registerModal.classList.add('open');
+            registerModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeModal() {
+            if (!registerModal) return;
+            registerModal.classList.remove('open');
+            registerModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('no-scroll');
+        }
+
         function finishRegistration() {
             const payUrl = getPaymentUrl();
             if (payUrl) { window.location.href = payUrl; return; }
             showConfirmation();
         }
 
-        // Initialise the summary on load.
-        renderSelection();
-
-        // Form validation and submission
-        const form = document.getElementById('rsvpForm');
-        const formContainer = document.getElementById('formContainer');
-        const confirmation = document.getElementById('confirmation');
+        function smoothScrollTo(targetId) {
+            const target = document.getElementById(targetId);
+            if (!target) return;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }
 
         function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -1970,20 +1920,10 @@
             if (input.required) {
                 isValid = input.type === 'email' ? validateEmail(input.value) : input.value.trim() !== '';
             }
-            formGroup.classList.toggle('has-error', !isValid);
+            if (formGroup) formGroup.classList.toggle('has-error', !isValid);
             input.classList.toggle('error', !isValid);
             return isValid;
         }
-
-        const inputs = form.querySelectorAll('.form-input');
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => {
-                if (input.value.trim() !== '' || input.required) validateField(input);
-            });
-            input.addEventListener('input', () => {
-                if (input.classList.contains('error')) validateField(input);
-            });
-        });
 
         function getHubSpotCookie() {
             const value = `; ${document.cookie}`;
@@ -2001,12 +1941,24 @@
         }
 
         function showConfirmation() {
-            formContainer.classList.add('hidden');
-            confirmation.classList.add('show');
-            registerModal.scrollTop = 0;
+            if (formContainer) formContainer.classList.add('hidden');
+            if (confirmation) confirmation.classList.add('show');
+            if (registerModal) registerModal.scrollTop = 0;
         }
 
-        form.addEventListener('submit', async (e) => {
+        function showFormError(message) {
+            if (!form) return;
+            let errorDiv = form.querySelector('.form-error-message');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'form-error-message';
+                errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
+                form.appendChild(errorDiv);
+            }
+            errorDiv.textContent = message;
+        }
+
+        async function handleSubmit(e) {
             e.preventDefault();
 
             let isFormValid = true;
@@ -2025,10 +1977,8 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
 
-            // Pack the (possibly multiple) selected Labs into two fields:
-            //   session_topic -> the chosen Labs + count and total (the field
-            //                    that tells you WHAT they selected)
-            //   session_time  -> the Lab time (same for every Lab)
+            // Pack the selected Labs into two fields: session_topic (what they
+            // chose + count and total) and session_time (same for every Lab).
             const picked = selectedSessions.map(k => SESSIONS[k]);
             const { count, total } = getPricing();
             const sessionSummary = {
@@ -2036,15 +1986,14 @@
                 topic: picked.map(s => s.topic).join(' | ') + `  (${count} ×, $${total.toLocaleString()})`
             };
 
-            // Demo mode: until a real HubSpot form ID is set, skip the network
-            // call and just confirm. Admins flip HUBSPOT_FORM_ID to go live.
+            // Demo mode: skip the network call until a real form ID is set.
             if (HUBSPOT_FORM_ID === 'PLACEHOLDER_FORM_ID') {
                 setTimeout(finishRegistration, 400);
                 return;
             }
 
             let pageUri;
-            try { pageUri = window.top.location.href; } catch (e) { pageUri = window.location.href; }
+            try { pageUri = window.top.location.href; } catch (err) { pageUri = window.location.href; }
             const hutk = getHubSpotCookie();
 
             const formData = {
@@ -2089,18 +2038,72 @@
                 submitBtn.textContent = originalBtnText;
                 showFormError('Network error. Please check your connection and try again.');
             }
-        });
-
-        function showFormError(message) {
-            let errorDiv = form.querySelector('.form-error-message');
-            if (!errorDiv) {
-                errorDiv = document.createElement('div');
-                errorDiv.className = 'form-error-message';
-                errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
-                form.appendChild(errorDiv);
-            }
-            errorDiv.textContent = message;
         }
+
+        function init() {
+            nav = document.getElementById('nav');
+            if (nav) {
+                window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const id = link.getAttribute('href').slice(1);
+                    if (!id || !document.getElementById(id)) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    smoothScrollTo(id);
+                });
+            });
+
+            registerModal = document.getElementById('registerModal');
+            modalClose = document.getElementById('modalClose');
+
+            document.querySelectorAll('.js-reserve').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const session = btn.getAttribute('data-session');
+                    if (session) selectSession(session);
+                    openModal();
+                });
+            });
+
+            if (modalClose) modalClose.addEventListener('click', closeModal);
+            if (registerModal) {
+                registerModal.addEventListener('click', (e) => {
+                    if (e.target === registerModal) closeModal();
+                });
+            }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && registerModal && registerModal.classList.contains('open')) closeModal();
+            });
+
+            form = document.getElementById('rsvpForm');
+            formContainer = document.getElementById('formContainer');
+            confirmation = document.getElementById('confirmation');
+
+            if (form) {
+                form.querySelectorAll('.form-input').forEach(input => {
+                    input.addEventListener('blur', () => {
+                        if (input.value.trim() !== '' || input.required) validateField(input);
+                    });
+                    input.addEventListener('input', () => {
+                        if (input.classList.contains('error')) validateField(input);
+                    });
+                });
+                form.addEventListener('submit', handleSubmit);
+            }
+
+            renderSelection();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
     </script>
 </body>
 </html>
