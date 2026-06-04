@@ -1770,13 +1770,19 @@
         const HUBSPOT_FORM_ID = '29124d77-ec31-450d-9801-b992f9cf5768';
 
         // ── HubSpot Payment Links ──
-        // After registration, the registrant is sent to the matching checkout.
-        //   SINGLE -> $299 single-Lab link (quantity set by buyer for multi)
-        //   SERIES -> $1,799 full-series link
-        // While left as a PLACEHOLDER, that path falls back to the confirmation
-        // card (manual billing).
-        const HUBSPOT_PAY_SINGLE = 'https://mail.fierceinc.com/hs/payments/purchase/hscs_642HtjRlcAqppXKxoqgsCsENlv89OHLdFlS6Bs3E4rcrcqrQDfJVZZaLDv7nuzSF?referrer=PAYMENT_LINK';
+        // After registration, the registrant is sent straight to the checkout
+        // whose total already matches their selection — no quantity step.
+        //   1–5 individual Labs -> the matching quantity link below
+        //   6+ individual Labs OR "Full Series" -> the $1,799 series link
+        //     (6+ rolls up to the all-7 series since it's the better value)
         const HUBSPOT_PAY_SERIES = 'https://mail.fierceinc.com/hs/payments/purchase/hscs_GrilsBHgN9hPyPCajI3xDSTWcLveJPEmGH0I26ijsntqIlXqccz7XhqdRSVFxbiw?referrer=PAYMENT_LINK';
+        const HUBSPOT_PAY_BY_QTY = {
+            1: 'https://mail.fierceinc.com/hs/payments/SPPqsxVVND2ShGD?referrer=PAYMENT_LINK',
+            2: 'https://mail.fierceinc.com/hs/payments/ZrnCKgYbVssb7nh?referrer=PAYMENT_LINK',
+            3: 'https://mail.fierceinc.com/hs/payments/9Tyk6TYKDghz?referrer=PAYMENT_LINK',
+            4: 'https://mail.fierceinc.com/hs/payments/NFnzxRsxkWt7DK?referrer=PAYMENT_LINK',
+            5: 'https://mail.fierceinc.com/hs/payments/cTyJPTxkPPjm?referrer=PAYMENT_LINK',
+        };
 
         const SESSIONS = {
             series:    { date: 'Full 2026 Series (all 7 Labs)', time: '11:00 AM CST', topic: 'Full Series Pass', model: 'Full Series' },
@@ -1798,17 +1804,26 @@
         // DOM refs (assigned in init()).
         let nav, registerModal, modalClose, form, formContainer, confirmation;
 
-        // Series -> $1,799 link. Any individual Lab(s) -> $299 link.
-        function getPaymentUrl() {
-            const url = selectedSessions.includes('series') ? HUBSPOT_PAY_SERIES : HUBSPOT_PAY_SINGLE;
-            return url.startsWith('PLACEHOLDER') ? null : url;
+        // Pricing for the current selection. 6+ individual Labs roll up to the
+        // Full Series (better value), so they bill the series price.
+        function getPricing() {
+            const count = selectedSessions.length;
+            const explicitSeries = selectedSessions.includes('series');
+            const useSeries = explicitSeries || count >= 6;
+            return {
+                count,
+                explicitSeries,
+                useSeries,
+                upgraded: useSeries && !explicitSeries,
+                total: useSeries ? SERIES_PRICE : count * SINGLE_PRICE
+            };
         }
 
-        function getPricing() {
-            const isSeries = selectedSessions.includes('series');
-            const count = isSeries ? 1 : selectedSessions.length;
-            const total = isSeries ? SERIES_PRICE : selectedSessions.length * SINGLE_PRICE;
-            return { isSeries, count, total };
+        // Route to the checkout whose total already matches the selection.
+        function getPaymentUrl() {
+            const { useSeries, count } = getPricing();
+            const url = useSeries ? HUBSPOT_PAY_SERIES : HUBSPOT_PAY_BY_QTY[count];
+            return (url && !url.startsWith('PLACEHOLDER')) ? url : null;
         }
 
         function renderSelection() {
@@ -1834,25 +1849,26 @@
                 return;
             }
 
-            const { isSeries, total } = getPricing();
-            if (isSeries) {
+            const { count, explicitSeries, upgraded, total } = getPricing();
+            if (explicitSeries) {
                 label.textContent = 'Full Series Pass (all 7 Labs)';
+            } else if (upgraded) {
+                label.textContent = `${count} Labs → Full Series (all 7)`;
             } else {
-                const n = selectedSessions.length;
-                label.textContent = `${n} Lab${n > 1 ? 's' : ''} selected`;
+                label.textContent = `${count} Lab${count > 1 ? 's' : ''} selected`;
             }
             totalEl.textContent = '$' + total.toLocaleString();
 
-            const n = selectedSessions.length;
+            // Only message left: 6+ individual Labs become the Full Series.
             const summaryEl = document.getElementById('selectionSummary');
-            if (!isSeries && n > 1 && summaryEl) {
+            if (upgraded && summaryEl) {
                 if (!note) {
                     note = document.createElement('span');
                     note.id = 'selectionSummaryNote';
                     note.className = 'selection-summary-note';
                     summaryEl.appendChild(note);
                 }
-                note.textContent = `At checkout, set quantity to ${n} to cover all ${n} Labs.`;
+                note.textContent = `6+ Labs selected — you'll get the Full Series Pass (all 7) for $1,799, our best value.`;
             } else if (note) {
                 note.remove();
             }
@@ -1978,12 +1994,17 @@
             submitBtn.textContent = 'Submitting...';
 
             // Pack the selected Labs into two fields: session_topic (what they
-            // chose + count and total) and session_time (same for every Lab).
+            // chose + total) and session_time (same for every Lab).
             const picked = selectedSessions.map(k => SESSIONS[k]);
-            const { count, total } = getPricing();
+            const { count, total, useSeries, upgraded } = getPricing();
+            const chosen = picked.map(s => s.topic).join(' | ');
             const sessionSummary = {
                 time:  picked[0].time,
-                topic: picked.map(s => s.topic).join(' | ') + `  (${count} ×, $${total.toLocaleString()})`
+                topic: useSeries
+                    ? (upgraded
+                        ? `Full Series Pass (all 7) [chose ${count}: ${chosen}]  ($${total.toLocaleString()})`
+                        : `Full Series Pass (all 7 Labs)  ($${total.toLocaleString()})`)
+                    : `${chosen}  (${count} ×, $${total.toLocaleString()})`
             };
 
             // Demo mode: skip the network call until a real form ID is set.
