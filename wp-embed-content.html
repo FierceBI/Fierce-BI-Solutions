@@ -745,8 +745,68 @@
 #fierce-lab .register-subhead {
             font-size: 18px;
             color: var(--color-muted);
-            margin-bottom: 48px;
+            margin-bottom: 28px;
             text-align: center;
+        }
+#fierce-lab .price-bar {
+            display: flex;
+            align-items: stretch;
+            border: 1px solid rgba(235, 117, 37, 0.4);
+            background: rgba(235, 117, 37, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 36px;
+        }
+#fierce-lab .price-bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+#fierce-lab .price-bar-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-muted);
+        }
+#fierce-lab .price-bar-amount {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-accent);
+            letter-spacing: -0.02em;
+        }
+#fierce-lab .price-bar-divider {
+            width: 1px;
+            background: rgba(235, 117, 37, 0.3);
+            flex-shrink: 0;
+        }
+#fierce-lab .selection-summary {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 14px 18px;
+            border-radius: 12px;
+            background: var(--color-surface);
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+#fierce-lab .selection-summary-total {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            color: var(--color-ink);
+            letter-spacing: -0.02em;
+        }
+#fierce-lab .selection-summary-note {
+            flex-basis: 100%;
+            font-size: 13px;
+            color: var(--color-accent);
+            font-weight: 600;
         }
 #fierce-lab .session-selection { margin-bottom: 44px; }
 #fierce-lab .session-selection-label {
@@ -1374,10 +1434,22 @@
                 <h2 class="register-headline" id="modalTitle">Reserve your seat</h2>
                 <p class="register-subhead">Choose your Lab and tell us where to send the details.</p>
 
+                <div class="price-bar">
+                    <div class="price-bar-item">
+                        <span class="price-bar-label">Individual Lab</span>
+                        <span class="price-bar-amount">$299</span>
+                    </div>
+                    <div class="price-bar-divider"></div>
+                    <div class="price-bar-item">
+                        <span class="price-bar-label">Full Series Pass</span>
+                        <span class="price-bar-amount">$1,799</span>
+                    </div>
+                </div>
+
                 <div class="session-selection">
-                <div class="session-selection-label">Choose Your Lab</div>
+                <div class="session-selection-label">Choose your Lab(s) &mdash; select as many as you'd like</div>
                 <div class="session-options" id="sessionOptions">
-                    <div class="session-card session-card-series" data-session="series" onclick="selectSession('series')">
+                    <div class="session-card session-card-series" data-session="series" onclick="toggleSession('series')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">All</span><span class="date-block-day">7</span></div>
                         <div class="session-card-series-body">
@@ -1385,43 +1457,43 @@
                             <div class="session-card-series-sub">All seven 2026 Labs · your final session is on us</div>
                         </div>
                     </div>
-                    <div class="session-card selected" data-session="june" onclick="selectSession('june')">
+                    <div class="session-card selected" data-session="june" onclick="toggleSession('june')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Jun</span><span class="date-block-day">17</span></div>
                         <div class="session-card-topic">Feedback That Builds Trust Instead of Resistance</div>
                         <div class="session-card-time">11:00 AM CST</div>
                     </div>
-                    <div class="session-card" data-session="july" onclick="selectSession('july')">
+                    <div class="session-card" data-session="july" onclick="toggleSession('july')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Jul</span><span class="date-block-day">22</span></div>
                         <div class="session-card-topic">Accountability Without Micromanagement</div>
                         <div class="session-card-time">11:00 AM CST</div>
                     </div>
-                    <div class="session-card" data-session="august" onclick="selectSession('august')">
+                    <div class="session-card" data-session="august" onclick="toggleSession('august')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Aug</span><span class="date-block-day">19</span></div>
                         <div class="session-card-topic">Leading Change Through Conversations</div>
                         <div class="session-card-time">11:00 AM CST</div>
                     </div>
-                    <div class="session-card" data-session="september" onclick="selectSession('september')">
+                    <div class="session-card" data-session="september" onclick="toggleSession('september')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Sep</span><span class="date-block-day">16</span></div>
                         <div class="session-card-topic">The Overloaded Leader: Delegating for Growth and Capacity</div>
                         <div class="session-card-time">11:00 AM CST</div>
                     </div>
-                    <div class="session-card" data-session="october" onclick="selectSession('october')">
+                    <div class="session-card" data-session="october" onclick="toggleSession('october')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Oct</span><span class="date-block-day">14</span></div>
                         <div class="session-card-topic">The Feedback Gap: Why High-Performing Teams Still Avoid Hard Conversations</div>
                         <div class="session-card-time">11:00 AM CST</div>
                     </div>
-                    <div class="session-card" data-session="november" onclick="selectSession('november')">
+                    <div class="session-card" data-session="november" onclick="toggleSession('november')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Nov</span><span class="date-block-day">18</span></div>
                         <div class="session-card-topic">Leading Teams Through Performance Pressure: Breaking Decision Gridlock and Driving Results</div>
                         <div class="session-card-time">11:00 AM CST</div>
                     </div>
-                    <div class="session-card" data-session="december" onclick="selectSession('december')">
+                    <div class="session-card" data-session="december" onclick="toggleSession('december')">
                         <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
                         <div class="date-block"><span class="date-block-month">Dec</span><span class="date-block-day">16</span></div>
                         <div class="session-card-topic">The Leadership Conversations That Define Culture</div>
@@ -1457,6 +1529,10 @@
                 <div class="form-group">
                     <label class="form-label" for="title">Title <span class="optional">(optional)</span></label>
                     <input type="text" class="form-input" id="title" name="title" autocomplete="organization-title">
+                </div>
+                <div class="selection-summary" id="selectionSummary">
+                    <span id="selectionSummaryLabel">1 Lab selected</span>
+                    <span class="selection-summary-total" id="selectionSummaryTotal">$299</span>
                 </div>
                 <button type="submit" class="btn btn-primary btn-submit">Reserve my seat</button>
                 <p class="form-note">After you register, we'll follow up with secure payment and Zoom details. Seats are confirmed once payment is received.</p>
