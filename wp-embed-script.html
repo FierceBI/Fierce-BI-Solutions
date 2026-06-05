@@ -10,9 +10,10 @@
         if (window.__fierceLabInit) return;
         window.__fierceLabInit = true;
 
-        // ⚠️ TEST MODE — while true, the buttons go to the TEST checkouts below.
-        // Set to false to go live with the real links.
-        const TEST_MODE = true;
+        // TEST vs LIVE is controlled by the iframe URL — no code change needed.
+        //   TEST  (default): buttons go to the $1 preview checkouts.
+        //   LIVE:  add "live=1" to the iframe src (e.g. ...?v=9&live=1) → real links.
+        const TEST_MODE = !window.location.search.includes('live=1');
         // Individual test: all sessions as OPTIONAL line items (preview page).
         const PAY_TEST_INDIVIDUAL = 'https://mail.fierceinc.com/hs/payments/9pgbxyqjSW?referrer=PAYMENT_LINK';
         // Series test: a single line item.
@@ -20,7 +21,7 @@
 
         // Individual Sessions: one HubSpot link with every session as an OPTIONAL,
         // editable-quantity line item (buyer picks sessions + # of people at checkout).
-        const PAY_INDIVIDUAL = 'PLACEHOLDER_INDIVIDUAL';
+        const PAY_INDIVIDUAL = 'https://mail.fierceinc.com/hs/payments/SPPqsxVVND2ShGD?referrer=PAYMENT_LINK';
         // Full Series Pass ($1,799 per seat, editable quantity for multiple people).
         const PAY_SERIES = 'https://mail.fierceinc.com/hs/payments/hFNnFvfKMFnnz2?referrer=PAYMENT_LINK';
 
