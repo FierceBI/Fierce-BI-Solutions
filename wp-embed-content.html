@@ -986,6 +986,25 @@
             font-size: 17px;
             padding: 18px 40px;
         }
+#fierce-lab .btn-series {
+            background: var(--gradient-gold);
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(235, 117, 37, 0.4);
+            border: none;
+        }
+#fierce-lab .btn-series:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(235, 117, 37, 0.52);
+        }
+#fierce-lab .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+#fierce-lab .cta-group.center { justify-content: center; }
 #fierce-lab .modal-overlay {
             position: fixed;
             inset: 0;
@@ -1089,7 +1108,7 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="logo">Fierce <span class="logo-sub">Leadership Lab</span></a>
-            <button type="button" class="btn btn-primary js-reserve">Reserve your seat</button>
+            <a class="btn btn-series js-series" target="_top" rel="noopener">Full Series Pass</a>
         </div>
     </nav>
 
@@ -1150,8 +1169,9 @@
                 </span>
                 <span class="meta-chip price"><strong>$299</strong>&nbsp;/ participant</span>
             </div>
-            <div class="hero-cta">
-                <button type="button" class="btn btn-primary js-reserve">Reserve your seat</button>
+            <div class="hero-cta cta-group">
+                <a class="btn btn-series js-series" target="_top" rel="noopener">Get the Full Series Pass</a>
+                <a class="btn btn-primary js-individual" target="_top" rel="noopener">Enroll in a Session</a>
                 <a href="#calendar" class="btn btn-ghost">View 2026 calendar</a>
             </div>
         </section>
@@ -1395,7 +1415,7 @@
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> Interactive breakouts and reflection</li>
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> Practical takeaways for organizational impact</li>
                     </ul>
-                    <button type="button" class="btn btn-primary js-reserve" data-session="june">Reserve your seat</button>
+                    <a class="btn btn-primary js-individual" target="_top" rel="noopener">Enroll in a Session</a>
                 </div>
                 <div class="price-card featured">
                     <div class="price-card-badge">Best value</div>
@@ -1408,7 +1428,7 @@
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> One continuous leadership journey, start to finish</li>
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> A reserved seat in every monthly Lab</li>
                     </ul>
-                    <button type="button" class="btn btn-primary js-reserve" data-session="series">Reserve the full series</button>
+                    <a class="btn btn-series js-series" target="_top" rel="noopener">Get the Full Series Pass</a>
                 </div>
             </div>
         </div>
@@ -1419,135 +1439,13 @@
         <div class="final-cta-inner">
             <p class="section-eyebrow">Save your seat</p>
             <h2 class="final-cta-title">Ready to lead the conversation?</h2>
-            <p class="final-cta-text">Reserve your place in the next Fierce Leadership Lab, two hours that change how you lead.</p>
-            <button type="button" class="btn btn-primary btn-lg js-reserve">Reserve my seat</button>
+            <p class="final-cta-text">Reserve your place in the 2026 Fierce Leadership Labs, two hours that change how you lead.</p>
+            <div class="cta-group center">
+                <a class="btn btn-series btn-lg js-series" target="_top" rel="noopener">Get the Full Series Pass</a>
+                <a class="btn btn-primary btn-lg js-individual" target="_top" rel="noopener">Enroll in a Session</a>
+            </div>
         </div>
     </section>
-
-    <!-- Registration Modal -->
-    <div class="modal-overlay" id="registerModal" aria-hidden="true">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <button type="button" class="modal-close" id="modalClose" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-            </button>
-            <div class="form-container" id="formContainer">
-                <h2 class="register-headline" id="modalTitle">Reserve your seat</h2>
-                <p class="register-subhead">Choose your Lab and tell us where to send the details.</p>
-
-                <div class="price-bar">
-                    <div class="price-bar-item">
-                        <span class="price-bar-label">Individual Lab</span>
-                        <span class="price-bar-amount">$299</span>
-                    </div>
-                    <div class="price-bar-divider"></div>
-                    <div class="price-bar-item">
-                        <span class="price-bar-label">Full Series Pass</span>
-                        <span class="price-bar-amount">$1,799</span>
-                    </div>
-                </div>
-
-                <div class="session-selection">
-                <div class="session-selection-label">Choose your Lab(s) &mdash; select as many as you'd like</div>
-                <div class="session-options" id="sessionOptions">
-                    <div class="session-card session-card-series" data-session="series" onclick="toggleSession('series')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">All</span><span class="date-block-day">7</span></div>
-                        <div class="session-card-series-body">
-                            <div class="session-card-series-title">Full Series Pass <span class="series-pill">Best value</span></div>
-                            <div class="session-card-series-sub">All seven 2026 Labs · your final session is on us</div>
-                        </div>
-                    </div>
-                    <div class="session-card selected" data-session="june" onclick="toggleSession('june')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Jun</span><span class="date-block-day">17</span></div>
-                        <div class="session-card-topic">Feedback That Builds Trust Instead of Resistance</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="july" onclick="toggleSession('july')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Jul</span><span class="date-block-day">22</span></div>
-                        <div class="session-card-topic">Accountability Without Micromanagement</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="august" onclick="toggleSession('august')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Aug</span><span class="date-block-day">19</span></div>
-                        <div class="session-card-topic">Leading Change Through Conversations</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="september" onclick="toggleSession('september')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Sep</span><span class="date-block-day">16</span></div>
-                        <div class="session-card-topic">The Overloaded Leader: Delegating for Growth and Capacity</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="october" onclick="toggleSession('october')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Oct</span><span class="date-block-day">14</span></div>
-                        <div class="session-card-topic">The Feedback Gap: Why High-Performing Teams Still Avoid Hard Conversations</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="november" onclick="toggleSession('november')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Nov</span><span class="date-block-day">18</span></div>
-                        <div class="session-card-topic">Leading Teams Through Performance Pressure: Breaking Decision Gridlock and Driving Results</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="december" onclick="toggleSession('december')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Dec</span><span class="date-block-day">16</span></div>
-                        <div class="session-card-topic">The Leadership Conversations That Define Culture</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                </div>
-                <input type="hidden" id="sessionInput" name="session" value="june">
-            </div>
-
-            <form class="rsvp-form" id="rsvpForm" novalidate>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="firstName">First name</label>
-                        <input type="text" class="form-input" id="firstName" name="firstName" required autocomplete="given-name">
-                        <span class="error-message">Please enter your first name</span>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="lastName">Last name</label>
-                        <input type="text" class="form-input" id="lastName" name="lastName" required autocomplete="family-name">
-                        <span class="error-message">Please enter your last name</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="email">Work email</label>
-                    <input type="email" class="form-input" id="email" name="email" required autocomplete="email">
-                    <span class="error-message">Please enter a valid work email</span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="company">Company</label>
-                    <input type="text" class="form-input" id="company" name="company" required autocomplete="organization">
-                    <span class="error-message">Please enter your company name</span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="title">Title <span class="optional">(optional)</span></label>
-                    <input type="text" class="form-input" id="title" name="title" autocomplete="organization-title">
-                </div>
-                <div class="selection-summary" id="selectionSummary">
-                    <span id="selectionSummaryLabel">1 Lab selected</span>
-                    <span class="selection-summary-total" id="selectionSummaryTotal">$299</span>
-                </div>
-                <button type="submit" class="btn btn-primary btn-submit">Reserve my seat</button>
-                <p class="form-note">After you register, we'll follow up with secure payment and Zoom details. Seats are confirmed once payment is received.</p>
-            </form>
-        </div>
-
-        <div class="confirmation" id="confirmation">
-            <div class="confirmation-icon">
-                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="28"/><polyline points="20,32 28,40 44,24"/></svg>
-            </div>
-            <h3 class="confirmation-headline">You're on the list.</h3>
-            <p class="confirmation-text">Thanks for registering. We'll be in touch shortly with payment and Zoom details to confirm your seat.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">

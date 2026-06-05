@@ -1170,6 +1170,29 @@
             padding: 18px 40px;
         }
 
+        /* Highlighted "Full Series Pass" button — gradient gold that pops */
+        .btn-series {
+            background: var(--gradient-gold);
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(235, 117, 37, 0.4);
+            border: none;
+        }
+        .btn-series:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(235, 117, 37, 0.52);
+        }
+
+        /* Two-button CTA group used in the hero and final CTA */
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+        .cta-group.center { justify-content: center; }
+
         /* Registration modal */
         .modal-overlay {
             position: fixed;
@@ -1288,7 +1311,7 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="logo">Fierce <span class="logo-sub">Leadership Lab</span></a>
-            <button type="button" class="btn btn-primary js-reserve">Reserve your seat</button>
+            <a class="btn btn-series js-series" target="_top" rel="noopener">Full Series Pass</a>
         </div>
     </nav>
 
@@ -1349,8 +1372,9 @@
                 </span>
                 <span class="meta-chip price"><strong>$299</strong>&nbsp;/ participant</span>
             </div>
-            <div class="hero-cta">
-                <button type="button" class="btn btn-primary js-reserve">Reserve your seat</button>
+            <div class="hero-cta cta-group">
+                <a class="btn btn-series js-series" target="_top" rel="noopener">Get the Full Series Pass</a>
+                <a class="btn btn-primary js-individual" target="_top" rel="noopener">Enroll in a Session</a>
                 <a href="#calendar" class="btn btn-ghost">View 2026 calendar</a>
             </div>
         </section>
@@ -1594,7 +1618,7 @@
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> Interactive breakouts and reflection</li>
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> Practical takeaways for organizational impact</li>
                     </ul>
-                    <button type="button" class="btn btn-primary js-reserve" data-session="june">Reserve your seat</button>
+                    <a class="btn btn-primary js-individual" target="_top" rel="noopener">Enroll in a Session</a>
                 </div>
                 <div class="price-card featured">
                     <div class="price-card-badge">Best value</div>
@@ -1607,7 +1631,7 @@
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> One continuous leadership journey, start to finish</li>
                         <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> A reserved seat in every monthly Lab</li>
                     </ul>
-                    <button type="button" class="btn btn-primary js-reserve" data-session="series">Reserve the full series</button>
+                    <a class="btn btn-series js-series" target="_top" rel="noopener">Get the Full Series Pass</a>
                 </div>
             </div>
         </div>
@@ -1618,135 +1642,13 @@
         <div class="final-cta-inner">
             <p class="section-eyebrow">Save your seat</p>
             <h2 class="final-cta-title">Ready to lead the conversation?</h2>
-            <p class="final-cta-text">Reserve your place in the next Fierce Leadership Lab, two hours that change how you lead.</p>
-            <button type="button" class="btn btn-primary btn-lg js-reserve">Reserve my seat</button>
+            <p class="final-cta-text">Reserve your place in the 2026 Fierce Leadership Labs, two hours that change how you lead.</p>
+            <div class="cta-group center">
+                <a class="btn btn-series btn-lg js-series" target="_top" rel="noopener">Get the Full Series Pass</a>
+                <a class="btn btn-primary btn-lg js-individual" target="_top" rel="noopener">Enroll in a Session</a>
+            </div>
         </div>
     </section>
-
-    <!-- Registration Modal -->
-    <div class="modal-overlay" id="registerModal" aria-hidden="true">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <button type="button" class="modal-close" id="modalClose" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-            </button>
-            <div class="form-container" id="formContainer">
-                <h2 class="register-headline" id="modalTitle">Reserve your seat</h2>
-                <p class="register-subhead">Choose your Lab and tell us where to send the details.</p>
-
-                <div class="price-bar">
-                    <div class="price-bar-item">
-                        <span class="price-bar-label">Individual Lab</span>
-                        <span class="price-bar-amount">$299</span>
-                    </div>
-                    <div class="price-bar-divider"></div>
-                    <div class="price-bar-item">
-                        <span class="price-bar-label">Full Series Pass</span>
-                        <span class="price-bar-amount">$1,799</span>
-                    </div>
-                </div>
-
-                <div class="session-selection">
-                <div class="session-selection-label">Choose your Lab(s) &mdash; select as many as you'd like</div>
-                <div class="session-options" id="sessionOptions">
-                    <div class="session-card session-card-series" data-session="series" onclick="toggleSession('series')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">All</span><span class="date-block-day">7</span></div>
-                        <div class="session-card-series-body">
-                            <div class="session-card-series-title">Full Series Pass <span class="series-pill">Best value</span></div>
-                            <div class="session-card-series-sub">All seven 2026 Labs · your final session is on us</div>
-                        </div>
-                    </div>
-                    <div class="session-card selected" data-session="june" onclick="toggleSession('june')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Jun</span><span class="date-block-day">17</span></div>
-                        <div class="session-card-topic">Feedback That Builds Trust Instead of Resistance</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="july" onclick="toggleSession('july')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Jul</span><span class="date-block-day">22</span></div>
-                        <div class="session-card-topic">Accountability Without Micromanagement</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="august" onclick="toggleSession('august')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Aug</span><span class="date-block-day">19</span></div>
-                        <div class="session-card-topic">Leading Change Through Conversations</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="september" onclick="toggleSession('september')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Sep</span><span class="date-block-day">16</span></div>
-                        <div class="session-card-topic">The Overloaded Leader: Delegating for Growth and Capacity</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="october" onclick="toggleSession('october')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Oct</span><span class="date-block-day">14</span></div>
-                        <div class="session-card-topic">The Feedback Gap: Why High-Performing Teams Still Avoid Hard Conversations</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="november" onclick="toggleSession('november')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Nov</span><span class="date-block-day">18</span></div>
-                        <div class="session-card-topic">Leading Teams Through Performance Pressure: Breaking Decision Gridlock and Driving Results</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                    <div class="session-card" data-session="december" onclick="toggleSession('december')">
-                        <div class="session-card-check"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg></div>
-                        <div class="date-block"><span class="date-block-month">Dec</span><span class="date-block-day">16</span></div>
-                        <div class="session-card-topic">The Leadership Conversations That Define Culture</div>
-                        <div class="session-card-time">11:00 AM CST</div>
-                    </div>
-                </div>
-                <input type="hidden" id="sessionInput" name="session" value="june">
-            </div>
-
-            <form class="rsvp-form" id="rsvpForm" novalidate>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="firstName">First name</label>
-                        <input type="text" class="form-input" id="firstName" name="firstName" required autocomplete="given-name">
-                        <span class="error-message">Please enter your first name</span>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="lastName">Last name</label>
-                        <input type="text" class="form-input" id="lastName" name="lastName" required autocomplete="family-name">
-                        <span class="error-message">Please enter your last name</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="email">Work email</label>
-                    <input type="email" class="form-input" id="email" name="email" required autocomplete="email">
-                    <span class="error-message">Please enter a valid work email</span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="company">Company</label>
-                    <input type="text" class="form-input" id="company" name="company" required autocomplete="organization">
-                    <span class="error-message">Please enter your company name</span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="title">Title <span class="optional">(optional)</span></label>
-                    <input type="text" class="form-input" id="title" name="title" autocomplete="organization-title">
-                </div>
-                <div class="selection-summary" id="selectionSummary">
-                    <span id="selectionSummaryLabel">1 Lab selected</span>
-                    <span class="selection-summary-total" id="selectionSummaryTotal">$299</span>
-                </div>
-                <button type="submit" class="btn btn-primary btn-submit">Reserve my seat</button>
-                <p class="form-note">After you register, we'll follow up with secure payment and Zoom details. Seats are confirmed once payment is received.</p>
-            </form>
-        </div>
-
-        <div class="confirmation" id="confirmation">
-            <div class="confirmation-icon">
-                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="28"/><polyline points="20,32 28,40 44,24"/></svg>
-            </div>
-            <h3 class="confirmation-headline">You're on the list.</h3>
-            <p class="confirmation-text">Thanks for registering. We'll be in touch shortly with payment and Zoom details to confirm your seat.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1757,385 +1659,49 @@
     </footer>
 
     <script>
-    // Self-contained, run-once, DOM-ready. Safe in <head> or footer, and
-    // immune to WordPress/Divi load order or being included twice.
+    // Fierce Leadership Lab — guide page. Two CTAs: "Enroll in a Session"
+    // (individual) and "Full Series Pass". Self-contained, run-once, DOM-ready.
     (function () {
-        if (window.__fierceLabInit) return;   // guard against double-inclusion
+        if (window.__fierceLabInit) return;
         window.__fierceLabInit = true;
 
-        // ── HubSpot Forms API ──
-        // Set HUBSPOT_FORM_ID to the live Leadership Lab form GUID. While it is
-        // 'PLACEHOLDER_FORM_ID' the form runs in demo mode (no network call).
-        const HUBSPOT_PORTAL_ID = '21395487';
-        const HUBSPOT_FORM_ID = '29124d77-ec31-450d-9801-b992f9cf5768';
-
-        // ── HubSpot Payment Links ──
-        // After registration, the registrant is sent straight to the checkout
-        // whose total already matches their selection — no quantity step.
-        //   1–5 individual Labs -> the matching quantity link below
-        //   6+ individual Labs OR "Full Series" -> the $1,799 series link
-        //     (6+ rolls up to the all-7 series since it's the better value)
-        const HUBSPOT_PAY_SERIES = 'https://mail.fierceinc.com/hs/payments/hFNnFvfKMFnnz2?referrer=PAYMENT_LINK';
-        const HUBSPOT_PAY_BY_QTY = {
-            1: 'https://mail.fierceinc.com/hs/payments/SPPqsxVVND2ShGD?referrer=PAYMENT_LINK',
-            2: 'https://mail.fierceinc.com/hs/payments/ZrnCKgYbVssb7nh?referrer=PAYMENT_LINK',
-            3: 'https://mail.fierceinc.com/hs/payments/9Tyk6TYKDghz?referrer=PAYMENT_LINK',
-            4: 'https://mail.fierceinc.com/hs/payments/NFnzxRsxkWt7DK?referrer=PAYMENT_LINK',
-            5: 'https://mail.fierceinc.com/hs/payments/cTyJPTxkPPjm?referrer=PAYMENT_LINK',
-        };
-
-        // ⚠️ TEST MODE — while true, EVERY selection routes to the $1 test
-        // checkout so the full flow can be verified cheaply. Set to false
-        // BEFORE going live, or real customers will only be charged $1.
+        // ⚠️ TEST MODE — while true, BOTH buttons go to the $1 test checkout.
+        // Set to false to go live with the real links below.
         const TEST_MODE = true;
-        const HUBSPOT_PAY_TEST = 'https://mail.fierceinc.com/hs/payments/2f6RMSVV?referrer=PAYMENT_LINK';
+        const PAY_TEST = 'https://mail.fierceinc.com/hs/payments/2f6RMSVV?referrer=PAYMENT_LINK';
 
-        const SESSIONS = {
-            series:    { date: 'Full 2026 Series (all 7 Labs)', time: '11:00 AM CST', topic: 'Full Series Pass', model: 'Full Series' },
-            june:      { date: 'June 17, 2026',      time: '11:00 AM CST', topic: 'Feedback That Builds Trust Instead of Resistance',                                  model: 'Fierce Feedback' },
-            july:      { date: 'July 22, 2026',      time: '11:00 AM CST', topic: 'Accountability Without Micromanagement',                                            model: 'Fierce Accountability' },
-            august:    { date: 'August 19, 2026',    time: '11:00 AM CST', topic: 'Leading Change Through Conversations',                                              model: 'Fierce Change' },
-            september: { date: 'September 16, 2026', time: '11:00 AM CST', topic: 'The Overloaded Leader: Delegating for Growth and Capacity',                         model: 'Fierce Delegate' },
-            october:   { date: 'October 14, 2026',   time: '11:00 AM CST', topic: 'The Feedback Gap: Why High-Performing Teams Still Avoid Hard Conversations',        model: 'Fierce Confront' },
-            november:  { date: 'November 18, 2026',  time: '11:00 AM CST', topic: 'Leading Teams Through Performance Pressure: Breaking Decision Gridlock and Driving Results', model: 'Fierce Team' },
-            december:  { date: 'December 16, 2026',  time: '11:00 AM CST', topic: 'The Leadership Conversations That Define Culture',                                   model: 'Fierce Foundations' },
-        };
+        // Individual Sessions: one HubSpot link with every session as an OPTIONAL,
+        // editable-quantity line item (buyer picks sessions + # of people at checkout).
+        const PAY_INDIVIDUAL = 'PLACEHOLDER_INDIVIDUAL';
+        // Full Series Pass ($1,799 per seat, editable quantity for multiple people).
+        const PAY_SERIES = 'https://mail.fierceinc.com/hs/payments/hFNnFvfKMFnnz2?referrer=PAYMENT_LINK';
 
-        const SINGLE_PRICE = 299;
-        const SERIES_PRICE = 1799;
-
-        // Currently selected Lab keys. Series is mutually exclusive with Labs.
-        let selectedSessions = ['june'];
-
-        // DOM refs (assigned in init()).
-        let nav, registerModal, modalClose, form, formContainer, confirmation;
-
-        // Pricing for the current selection. 6+ individual Labs roll up to the
-        // Full Series (better value), so they bill the series price.
-        function getPricing() {
-            const count = selectedSessions.length;
-            const explicitSeries = selectedSessions.includes('series');
-            const useSeries = explicitSeries || count >= 6;
-            return {
-                count,
-                explicitSeries,
-                useSeries,
-                upgraded: useSeries && !explicitSeries,
-                total: useSeries ? SERIES_PRICE : count * SINGLE_PRICE
-            };
-        }
-
-        // Route to the checkout whose total already matches the selection.
-        function getPaymentUrl() {
-            if (TEST_MODE) return HUBSPOT_PAY_TEST;   // $1 test checkout for everything
-            const { useSeries, count } = getPricing();
-            const url = useSeries ? HUBSPOT_PAY_SERIES : HUBSPOT_PAY_BY_QTY[count];
-            return (url && !url.startsWith('PLACEHOLDER')) ? url : null;
-        }
-
-        function renderSelection() {
-            document.querySelectorAll('.session-card').forEach(card => {
-                const key = card.getAttribute('data-session');
-                card.classList.toggle('selected', selectedSessions.includes(key));
-            });
-            const hidden = document.getElementById('sessionInput');
-            if (hidden) hidden.value = selectedSessions.join(',');
-            updateSummary();
-        }
-
-        function updateSummary() {
-            const label = document.getElementById('selectionSummaryLabel');
-            const totalEl = document.getElementById('selectionSummaryTotal');
-            let note = document.getElementById('selectionSummaryNote');
-            if (!label || !totalEl) return;
-
-            if (selectedSessions.length === 0) {
-                label.textContent = 'No Lab selected yet';
-                totalEl.textContent = '$0';
-                if (note) note.remove();
-                return;
-            }
-
-            const { count, explicitSeries, upgraded, total } = getPricing();
-            if (explicitSeries) {
-                label.textContent = 'Full Series Pass (all 7 Labs)';
-            } else if (upgraded) {
-                label.textContent = `${count} Labs → Full Series (all 7)`;
-            } else {
-                label.textContent = `${count} Lab${count > 1 ? 's' : ''} selected`;
-            }
-            totalEl.textContent = '$' + total.toLocaleString();
-
-            // Only message left: 6+ individual Labs become the Full Series.
-            const summaryEl = document.getElementById('selectionSummary');
-            if (upgraded && summaryEl) {
-                if (!note) {
-                    note = document.createElement('span');
-                    note.id = 'selectionSummaryNote';
-                    note.className = 'selection-summary-note';
-                    summaryEl.appendChild(note);
-                }
-                note.textContent = `6+ Labs selected — you'll get the Full Series Pass (all 7) for $1,799, our best value.`;
-            } else if (note) {
-                note.remove();
-            }
-        }
-
-        // Toggle a Lab on/off (series clears individuals & vice versa).
-        function toggleSession(key) {
-            if (key === 'series') {
-                selectedSessions = selectedSessions.includes('series') ? [] : ['series'];
-            } else {
-                selectedSessions = selectedSessions.filter(k => k !== 'series');
-                if (selectedSessions.includes(key)) {
-                    selectedSessions = selectedSessions.filter(k => k !== key);
-                } else {
-                    selectedSessions.push(key);
-                }
-            }
-            renderSelection();
-        }
-
-        // Preselect exactly one Lab (used by the page's "Reserve" buttons).
-        function selectSession(key) {
-            selectedSessions = [key];
-            renderSelection();
-        }
-
-        // Expose for the inline onclick handlers in the markup.
-        window.toggleSession = toggleSession;
-        window.selectSession = selectSession;
-
-        function openModal() {
-            if (!registerModal) return;
-            registerModal.classList.add('open');
-            registerModal.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('no-scroll');
-        }
-
-        function closeModal() {
-            if (!registerModal) return;
-            registerModal.classList.remove('open');
-            registerModal.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('no-scroll');
-        }
-
-        function finishRegistration() {
-            const payUrl = getPaymentUrl();
-            if (payUrl) { window.location.href = payUrl; return; }
-            showConfirmation();
-        }
-
-        function smoothScrollTo(targetId) {
-            const target = document.getElementById(targetId);
-            if (!target) return;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-        }
-
-        function validateEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        function validateField(input) {
-            const formGroup = input.closest('.form-group');
-            let isValid = true;
-            if (input.required) {
-                isValid = input.type === 'email' ? validateEmail(input.value) : input.value.trim() !== '';
-            }
-            if (formGroup) formGroup.classList.toggle('has-error', !isValid);
-            input.classList.toggle('error', !isValid);
-            return isValid;
-        }
-
-        function getHubSpotCookie() {
-            const value = `; ${document.cookie}`;
-            const parts = value.split('; hubspotutk=');
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-
-        function getUtmParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']
-                .map(key => ({ key, value: urlParams.get(key) }))
-                .filter(p => p.value)
-                .map(p => ({ name: p.key, value: p.value }));
-        }
-
-        function showConfirmation() {
-            if (formContainer) formContainer.classList.add('hidden');
-            if (confirmation) confirmation.classList.add('show');
-            if (registerModal) registerModal.scrollTop = 0;
-        }
-
-        function showFormError(message) {
-            if (!form) return;
-            let errorDiv = form.querySelector('.form-error-message');
-            if (!errorDiv) {
-                errorDiv = document.createElement('div');
-                errorDiv.className = 'form-error-message';
-                errorDiv.style.cssText = 'color: var(--color-error); text-align: center; margin-top: 16px; font-size: 14px;';
-                form.appendChild(errorDiv);
-            }
-            errorDiv.textContent = message;
-        }
-
-        async function handleSubmit(e) {
-            e.preventDefault();
-
-            let isFormValid = true;
-            form.querySelectorAll('.form-input[required]').forEach(input => {
-                if (!validateField(input)) isFormValid = false;
-            });
-            if (!isFormValid) return;
-
-            if (selectedSessions.length === 0) {
-                showFormError('Please choose at least one Lab.');
-                return;
-            }
-
-            const submitBtn = form.querySelector('.btn-submit');
-            const originalBtnText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
-
-            // Pack the selected Labs into two fields: session_topic (what they
-            // chose + total) and session_time (same for every Lab).
-            const picked = selectedSessions.map(k => SESSIONS[k]);
-            const { count, total, useSeries, upgraded } = getPricing();
-            const chosen = picked.map(s => s.topic).join(' | ');
-            const sessionSummary = {
-                time:  picked[0].time,
-                topic: useSeries
-                    ? (upgraded
-                        ? `Full Series Pass (all 7) [chose ${count}: ${chosen}]  ($${total.toLocaleString()})`
-                        : `Full Series Pass (all 7 Labs)  ($${total.toLocaleString()})`)
-                    : `${chosen}  (${count} ×, $${total.toLocaleString()})`
-            };
-
-            // Demo mode: skip the network call until a real form ID is set.
-            if (HUBSPOT_FORM_ID === 'PLACEHOLDER_FORM_ID') {
-                setTimeout(finishRegistration, 400);
-                return;
-            }
-
-            let pageUri;
-            try { pageUri = window.top.location.href; } catch (err) { pageUri = window.location.href; }
-            const hutk = getHubSpotCookie();
-
-            const formData = {
-                fields: [
-                    { name: 'firstname', value: document.getElementById('firstName').value.trim() },
-                    { name: 'lastname', value: document.getElementById('lastName').value.trim() },
-                    { name: 'email', value: document.getElementById('email').value.trim() },
-                    { name: 'company', value: document.getElementById('company').value.trim() },
-                    { name: 'jobtitle', value: document.getElementById('title').value.trim() },
-                    { name: 'session_topic', value: sessionSummary.topic },
-                    { name: 'session_time', value: sessionSummary.time },
-                    ...getUtmParams()
-                ],
-                context: {
-                    ...(hutk && { hutk }),
-                    pageUri,
-                    pageName: 'Fierce Leadership Lab Registration'
-                },
-                skipValidation: true
-            };
-
-            try {
-                const url = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    finishRegistration();
-                } else {
-                    const responseText = await response.text();
-                    console.error('HubSpot submission error:', response.status, responseText);
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalBtnText;
-                    showFormError('Something went wrong. Please try again.');
-                }
-            } catch (error) {
-                console.error('Network error:', error);
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
-                showFormError('Network error. Please check your connection and try again.');
-            }
+        function setLinks(selector, url) {
+            if (!url || url.startsWith('PLACEHOLDER')) return;
+            document.querySelectorAll(selector).forEach(function (a) { a.href = url; });
         }
 
         function init() {
-            nav = document.getElementById('nav');
+            setLinks('.js-individual', TEST_MODE ? PAY_TEST : PAY_INDIVIDUAL);
+            setLinks('.js-series',     TEST_MODE ? PAY_TEST : PAY_SERIES);
+
+            var nav = document.getElementById('nav');
             if (nav) {
-                window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+                window.addEventListener('scroll', function () {
+                    nav.classList.toggle('scrolled', window.scrollY > 10);
+                });
             }
 
-            document.querySelectorAll('a[href^="#"]').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const id = link.getAttribute('href').slice(1);
-                    if (!id || !document.getElementById(id)) return;
+            document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    var id = link.getAttribute('href').slice(1);
+                    var target = id && document.getElementById(id);
+                    if (!target) return;
                     e.preventDefault();
-                    e.stopPropagation();
-                    smoothScrollTo(id);
+                    var top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
                 });
             });
-
-            registerModal = document.getElementById('registerModal');
-            modalClose = document.getElementById('modalClose');
-
-            // Page builders (Divi) wrap content in containers that use CSS
-            // transforms / overflow:hidden, which clip a position:fixed modal so
-            // it never appears. Relocate the modal to <body> inside a #fierce-lab
-            // host so its scoped styles still apply but it covers the viewport.
-            if (registerModal && registerModal.parentElement !== document.body) {
-                const modalHost = document.createElement('div');
-                modalHost.id = 'fierce-lab';
-                modalHost.setAttribute('data-fierce-lab-modal-host', '');
-                document.body.appendChild(modalHost);
-                modalHost.appendChild(registerModal);
-            }
-
-            document.querySelectorAll('.js-reserve').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const session = btn.getAttribute('data-session');
-                    if (session) selectSession(session);
-                    openModal();
-                });
-            });
-
-            if (modalClose) modalClose.addEventListener('click', closeModal);
-            if (registerModal) {
-                registerModal.addEventListener('click', (e) => {
-                    if (e.target === registerModal) closeModal();
-                });
-            }
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && registerModal && registerModal.classList.contains('open')) closeModal();
-            });
-
-            form = document.getElementById('rsvpForm');
-            formContainer = document.getElementById('formContainer');
-            confirmation = document.getElementById('confirmation');
-
-            if (form) {
-                form.querySelectorAll('.form-input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        if (input.value.trim() !== '' || input.required) validateField(input);
-                    });
-                    input.addEventListener('input', () => {
-                        if (input.classList.contains('error')) validateField(input);
-                    });
-                });
-                form.addEventListener('submit', handleSubmit);
-            }
-
-            renderSelection();
         }
 
         if (document.readyState === 'loading') {
