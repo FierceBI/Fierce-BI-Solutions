@@ -1698,10 +1698,13 @@
         if (window.__fierceLabInit) return;
         window.__fierceLabInit = true;
 
-        // ⚠️ TEST MODE — while true, BOTH buttons go to the $1 test checkout.
-        // Set to false to go live with the real links below.
+        // ⚠️ TEST MODE — while true, the buttons go to the TEST checkouts below.
+        // Set to false to go live with the real links.
         const TEST_MODE = true;
-        const PAY_TEST = 'https://mail.fierceinc.com/hs/payments/9pgbxyqjSW?referrer=PAYMENT_LINK';
+        // Individual test: all sessions as OPTIONAL line items (preview page).
+        const PAY_TEST_INDIVIDUAL = 'https://mail.fierceinc.com/hs/payments/9pgbxyqjSW?referrer=PAYMENT_LINK';
+        // Series test: a single line item.
+        const PAY_TEST_SERIES = 'https://mail.fierceinc.com/hs/payments/2f6RMSVV?referrer=PAYMENT_LINK';
 
         // Individual Sessions: one HubSpot link with every session as an OPTIONAL,
         // editable-quantity line item (buyer picks sessions + # of people at checkout).
@@ -1715,8 +1718,8 @@
         }
 
         function init() {
-            setLinks('.js-individual', TEST_MODE ? PAY_TEST : PAY_INDIVIDUAL);
-            setLinks('.js-series',     TEST_MODE ? PAY_TEST : PAY_SERIES);
+            setLinks('.js-individual', TEST_MODE ? PAY_TEST_INDIVIDUAL : PAY_INDIVIDUAL);
+            setLinks('.js-series',     TEST_MODE ? PAY_TEST_SERIES : PAY_SERIES);
 
             var nav = document.getElementById('nav');
             if (nav) {
