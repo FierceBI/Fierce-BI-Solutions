@@ -932,19 +932,7 @@
             <div class="session-selection">
                 <div class="session-selection-label">Choose Your Session</div>
                 <div class="session-options">
-                    <div class="session-card selected" data-session="june12" onclick="selectSession('june12')">
-                        <div class="session-card-check">
-                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="2,7 5.5,10.5 12,4"/>
-                            </svg>
-                        </div>
-                        <div class="session-card-module">Confront</div>
-                        <div class="session-card-topic">Silence Costs Talent.</div>
-                        <div class="session-card-subdesc">How the conversations leaders avoid quietly push their best people out the door.</div>
-                        <div class="session-card-date">Friday, June 12th</div>
-                        <div class="session-card-time">11:00am ET</div>
-                    </div>
-                    <div class="session-card" data-session="june26" onclick="selectSession('june26')">
+                    <div class="session-card selected" data-session="june26" onclick="selectSession('june26')">
                         <div class="session-card-check">
                             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="2,7 5.5,10.5 12,4"/>
@@ -968,8 +956,20 @@
                         <div class="session-card-date">Friday, July 10th</div>
                         <div class="session-card-time">11:00am ET</div>
                     </div>
+                    <div class="session-card" data-session="july24" onclick="selectSession('july24')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-module">Awareness</div>
+                        <div class="session-card-topic">You Can't Lead What You Don't Notice.</div>
+                        <div class="session-card-subdesc">How leaders build awareness of the signals, patterns, and blind spots shaping their teams every day.</div>
+                        <div class="session-card-date">Friday, July 24th</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
                 </div>
-                <input type="hidden" id="sessionInput" name="session" value="june12">
+                <input type="hidden" id="sessionInput" name="session" value="june26">
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -1084,15 +1084,6 @@
         const HUBSPOT_PORTAL_ID = '21395487';
         // Session data with form IDs
         const SESSIONS = {
-            june12: {
-                date: 'Friday, June 12th',
-                time: '11:00am ET',
-                topic: 'Confront',
-                calendarStart: '20260612T150000Z',
-                calendarEnd: '20260612T153000Z',
-                description: '• Handling difficult conversations with confidence and clarity\n• Addressing resistance without escalating conflict\n• Confronting tough workplace situations constructively',
-                formId: '42f3449e-fe61-4b9e-9f5d-380ae3031344'
-            },
             june26: {
                 date: 'Friday, June 26th',
                 time: '11:00am ET',
@@ -1111,6 +1102,15 @@
                 description: '• Leading conversations through uncertainty\n• How to address resistance and build buy-in\n• Practice: Navigating real change scenarios',
                 formId: '734af703-4b5d-4683-8570-547c902d4795'
             },
+            july24: {
+                date: 'Friday, July 24th',
+                time: '11:00am ET',
+                topic: 'Awareness',
+                calendarStart: '20260724T150000Z',
+                calendarEnd: '20260724T153000Z',
+                description: '• How leaders sharpen awareness to spot challenges early—before they become problems',
+                formId: '75a21cbf-78c9-406a-8c27-81f085534008'
+            }
         };
 
         // Session selection
@@ -1277,7 +1277,7 @@
                 if (response.ok) {
                     // Redirect to thank you page with session info
                     const sessionInput = document.querySelector('input[name="session"]');
-                    const sessionKey = sessionInput ? sessionInput.value : 'june12';
+                    const sessionKey = sessionInput ? sessionInput.value : 'june26';
                     // Use absolute URL for redirect (works better in iframes)
                     const currentPath = window.location.pathname;
                     const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
