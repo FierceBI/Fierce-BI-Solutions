@@ -932,19 +932,7 @@
             <div class="session-selection">
                 <div class="session-selection-label">Choose Your Session</div>
                 <div class="session-options">
-                    <div class="session-card selected" data-session="june26" onclick="selectSession('june26')">
-                        <div class="session-card-check">
-                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="2,7 5.5,10.5 12,4"/>
-                            </svg>
-                        </div>
-                        <div class="session-card-module">Resilience</div>
-                        <div class="session-card-topic">Your Team Doesn't Need More Grit.</div>
-                        <div class="session-card-subdesc">How leaders reset team energy under pressure — without pushing people past their limit.</div>
-                        <div class="session-card-date">Friday, June 26th</div>
-                        <div class="session-card-time">11:00am ET</div>
-                    </div>
-                    <div class="session-card" data-session="july10" onclick="selectSession('july10')">
+                    <div class="session-card selected" data-session="july10" onclick="selectSession('july10')">
                         <div class="session-card-check">
                             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="2,7 5.5,10.5 12,4"/>
@@ -968,8 +956,20 @@
                         <div class="session-card-date">Friday, July 24th</div>
                         <div class="session-card-time">11:00am ET</div>
                     </div>
+                    <div class="session-card" data-session="august7" onclick="selectSession('august7')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-module">Influence</div>
+                        <div class="session-card-topic">People Follow Clarity, Not Titles.</div>
+                        <div class="session-card-subdesc">How leaders communicate with confidence, empathy, and credibility to move ideas forward.</div>
+                        <div class="session-card-date">Friday, August 7th</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
                 </div>
-                <input type="hidden" id="sessionInput" name="session" value="june26">
+                <input type="hidden" id="sessionInput" name="session" value="july10">
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -1084,15 +1084,6 @@
         const HUBSPOT_PORTAL_ID = '21395487';
         // Session data with form IDs
         const SESSIONS = {
-            june26: {
-                date: 'Friday, June 26th',
-                time: '11:00am ET',
-                topic: 'Resilience',
-                calendarStart: '20260626T150000Z',
-                calendarEnd: '20260626T153000Z',
-                description: '• Staying adaptable and focused during challenges\n• Building emotional strength and a growth mindset\n• Responding effectively under pressure',
-                formId: '9a8ebe5e-4448-42cc-b760-92889841eb41'
-            },
             july10: {
                 date: 'Friday, July 10th',
                 time: '11:00am ET',
@@ -1110,6 +1101,15 @@
                 calendarEnd: '20260724T153000Z',
                 description: '• How leaders sharpen awareness to spot challenges early—before they become problems',
                 formId: '75a21cbf-78c9-406a-8c27-81f085534008'
+            },
+            august7: {
+                date: 'Friday, August 7th',
+                time: '11:00am ET',
+                topic: 'Influence',
+                calendarStart: '20260807T150000Z',
+                calendarEnd: '20260807T153000Z',
+                description: '• How leaders communicate with confidence, empathy, and credibility to move ideas forward.',
+                formId: '942d5211-781b-45c6-9f38-c0b222315392'
             }
         };
 
@@ -1277,7 +1277,7 @@
                 if (response.ok) {
                     // Redirect to thank you page with session info
                     const sessionInput = document.querySelector('input[name="session"]');
-                    const sessionKey = sessionInput ? sessionInput.value : 'june26';
+                    const sessionKey = sessionInput ? sessionInput.value : 'july10';
                     // Use absolute URL for redirect (works better in iframes)
                     const currentPath = window.location.pathname;
                     const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
