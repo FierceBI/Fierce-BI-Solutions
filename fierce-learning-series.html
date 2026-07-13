@@ -932,19 +932,7 @@
             <div class="session-selection">
                 <div class="session-selection-label">Choose Your Session</div>
                 <div class="session-options">
-                    <div class="session-card selected" data-session="july10" onclick="selectSession('july10')">
-                        <div class="session-card-check">
-                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="2,7 5.5,10.5 12,4"/>
-                            </svg>
-                        </div>
-                        <div class="session-card-module">Change</div>
-                        <div class="session-card-topic">AI Is Coming for Your Culture.</div>
-                        <div class="session-card-subdesc">How leaders hold the line when everything is shifting underneath them.</div>
-                        <div class="session-card-date">Friday, July 10th</div>
-                        <div class="session-card-time">11:00am ET</div>
-                    </div>
-                    <div class="session-card" data-session="july24" onclick="selectSession('july24')">
+                    <div class="session-card selected" data-session="july24" onclick="selectSession('july24')">
                         <div class="session-card-check">
                             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="2,7 5.5,10.5 12,4"/>
@@ -968,8 +956,20 @@
                         <div class="session-card-date">Friday, August 7th</div>
                         <div class="session-card-time">11:00am ET</div>
                     </div>
+                    <div class="session-card" data-session="august21" onclick="selectSession('august21')">
+                        <div class="session-card-check">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2,7 5.5,10.5 12,4"/>
+                            </svg>
+                        </div>
+                        <div class="session-card-module">Team</div>
+                        <div class="session-card-topic">Great Teams Are Built Through Conversations.</div>
+                        <div class="session-card-subdesc">How leaders create trust, accountability, and shared ownership that drives lasting performance.</div>
+                        <div class="session-card-date">Friday, August 21st</div>
+                        <div class="session-card-time">11:00am ET</div>
+                    </div>
                 </div>
-                <input type="hidden" id="sessionInput" name="session" value="july10">
+                <input type="hidden" id="sessionInput" name="session" value="july24">
             </div>
 
             <form class="rsvp-form" id="rsvpForm" novalidate>
@@ -1084,15 +1084,6 @@
         const HUBSPOT_PORTAL_ID = '21395487';
         // Session data with form IDs
         const SESSIONS = {
-            july10: {
-                date: 'Friday, July 10th',
-                time: '11:00am ET',
-                topic: 'Change',
-                calendarStart: '20260710T150000Z',
-                calendarEnd: '20260710T153000Z',
-                description: '• Leading conversations through uncertainty\n• How to address resistance and build buy-in\n• Practice: Navigating real change scenarios',
-                formId: '734af703-4b5d-4683-8570-547c902d4795'
-            },
             july24: {
                 date: 'Friday, July 24th',
                 time: '11:00am ET',
@@ -1110,6 +1101,15 @@
                 calendarEnd: '20260807T153000Z',
                 description: '• How leaders communicate with confidence, empathy, and credibility to move ideas forward.',
                 formId: '942d5211-781b-45c6-9f38-c0b222315392'
+            },
+            august21: {
+                date: 'Friday, August 21st',
+                time: '11:00am ET',
+                topic: 'Team',
+                calendarStart: '20260821T150000Z',
+                calendarEnd: '20260821T153000Z',
+                description: '• How leaders create trust, accountability, and shared ownership that drives lasting performance.',
+                formId: 'e2050f1e-ea9e-402c-bd04-abc86ec1bb80'
             }
         };
 
@@ -1277,7 +1277,7 @@
                 if (response.ok) {
                     // Redirect to thank you page with session info
                     const sessionInput = document.querySelector('input[name="session"]');
-                    const sessionKey = sessionInput ? sessionInput.value : 'july10';
+                    const sessionKey = sessionInput ? sessionInput.value : 'july24';
                     // Use absolute URL for redirect (works better in iframes)
                     const currentPath = window.location.pathname;
                     const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
